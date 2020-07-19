@@ -78,6 +78,8 @@ int main(int argc, char** argv) {
   std::vector<std::vector<unsigned> > res(query_num);
   for (unsigned i = 0; i < query_num; i++) res[i].resize(K);
 
+  std::cout << "STARTING QUERY\n";
+
   auto s = std::chrono::high_resolution_clock::now();
   for (unsigned i = 0; i < query_num; i++) {
     index.SearchWithOptGraph(query_load + i * dim, K, paras, res[i].data());
