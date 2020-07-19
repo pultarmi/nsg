@@ -80,6 +80,12 @@ int main(int argc, char** argv) {
 
   std::cout << "STARTING QUERY\n";
 
+  while(1){
+      int a;
+      std::cin >> a;
+      std::cout << a+10;
+  }
+
   auto s = std::chrono::high_resolution_clock::now();
   for (unsigned i = 0; i < query_num; i++) {
     index.SearchWithOptGraph(query_load + i * dim, K, paras, res[i].data());
