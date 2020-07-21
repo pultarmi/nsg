@@ -76,11 +76,11 @@ int main(int argc, char **argv) {
 
     std::cout << "STARTING QUERY\n";
 
-    unsigned query_num, query_dim;
-    load_data(argv[2], query_load, query_num, query_dim);
-    assert(dim == query_dim);
-    std::vector<std::vector<unsigned> > res(query_num);
-    for (unsigned i = 0; i < query_num; i++) res[i].resize(K);
+//    unsigned query_num, query_dim;
+//    load_data(argv[2], query_load, query_num, query_dim);
+//    assert(dim == query_dim);
+//    std::vector<std::vector<unsigned> > res(query_num);
+//    for (unsigned i = 0; i < query_num; i++) res[i].resize(K);
 
     while (1) {
         int a;
