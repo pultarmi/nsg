@@ -88,15 +88,15 @@ int main(int argc, char **argv) {
         std::cout << a + 10;
     }
 
-    auto s = std::chrono::high_resolution_clock::now();
-    for (unsigned i = 0; i < query_num; i++) {
-        index.SearchWithOptGraph(query_load + i * dim, K, paras, res[i].data());
-    }
-    auto e = std::chrono::high_resolution_clock::now();
-    std::chrono::duration<double> diff = e - s;
-    std::cout << "search time: " << diff.count() << "\n";
-
-    save_result(argv[6], res);
+//    auto s = std::chrono::high_resolution_clock::now();
+//    for (unsigned i = 0; i < query_num; i++) {
+//        index.SearchWithOptGraph(query_load + i * dim, K, paras, res[i].data());
+//    }
+//    auto e = std::chrono::high_resolution_clock::now();
+//    std::chrono::duration<double> diff = e - s;
+//    std::cout << "search time: " << diff.count() << "\n";
+//
+//    save_result(argv[6], res);
 
     return 0;
 }
