@@ -86,6 +86,7 @@ int main(int argc, char **argv) {
         int a;
         std::cin >> a;
         std::cout << a + 10;
+        std::cout << std::endl;
     }
 
 //    auto s = std::chrono::high_resolution_clock::now();
