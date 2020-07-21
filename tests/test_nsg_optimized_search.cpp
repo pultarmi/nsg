@@ -83,7 +83,6 @@ int main(int argc, char **argv) {
 //    for (unsigned i = 0; i < query_num; i++) res[i].resize(K);
 
     std::cout << 10 << 20 << std::endl;
-    return 0;
 
     while (1) {
 //        int a;
