@@ -83,9 +83,10 @@ int main(int argc, char **argv) {
 //    for (unsigned i = 0; i < query_num; i++) res[i].resize(K);
 
     while (1) {
-        int a;
-        std::cin >> a;
-        std::cout << a + 10 << std::endl;
+//        int a;
+//        std::cin >> a;
+//        std::cout << a + 10 << std::endl;
+        std::cout << 10 << 20 << std::endl;
     }
 
 //    auto s = std::chrono::high_resolution_clock::now();
