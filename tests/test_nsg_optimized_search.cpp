@@ -85,8 +85,7 @@ int main(int argc, char **argv) {
     while (1) {
         int a;
         std::cin >> a;
-        std::cout << a + 10;
-        std::cout << std::endl;
+        std::cout << a + 10 << std::endl;
     }
 
 //    auto s = std::chrono::high_resolution_clock::now();
