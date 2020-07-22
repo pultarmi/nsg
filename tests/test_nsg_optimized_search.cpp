@@ -30,6 +30,7 @@ void load_data(char* filename, float*& data, unsigned& num, unsigned& dim) {  //
 }
 
 void load_query(float *&data, unsigned dim) {  // load data with sift10K pattern
+    std::cout << 12 << std::endl;
     std::cin.read((char *) data, dim * 4);
 }
 
