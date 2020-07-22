@@ -7,8 +7,7 @@
 #include <chrono>
 #include <string>
 
-void load_data(char* filename, float*& data, unsigned& num,
-               unsigned& dim) {  // load data with sift10K pattern
+void load_data(char* filename, float*& data, unsigned& num, unsigned& dim) {  // load data with sift10K pattern
     std::ifstream in(filename, std::ios::binary);
     if (!in.is_open()) {
         std::cout << "open file error" << std::endl;
@@ -82,7 +81,7 @@ int main(int argc, char **argv) {
     query_load = new float[(size_t) dim];
 
     while (1) {
-        std::cout << 10 << std::endl;
+//        std::cout << 10 << std::endl;
         load_query(query_load, query_dim);
 //        std::vector<std::vector<unsigned> > res(query_num);
 //        for (unsigned i = 0; i < query_num; i++) res[i].resize(K);
