@@ -44,6 +44,12 @@ void save_result(const char *filename, std::vector<std::vector<unsigned> > &resu
     out.close();
 }
 
+void write_result( std::vector<unsigned> &results) {
+    unsigned GK = (unsigned) results.size();
+//    std::cout.write((char *) &GK, sizeof(unsigned));
+    std::cout.write((char *) results.data(), GK * sizeof(unsigned));
+}
+
 int main(int argc, char **argv) {
     if (argc != 7) {
         std::cout << argv[0]
@@ -84,7 +90,7 @@ int main(int argc, char **argv) {
         std::vector<unsigned> res(K);
 //        res.resize(K);
         index.SearchWithOptGraph(query_load, K, paras, res.data());
-        std::cout << 3.14 << std::endl;
+        write_result(res);
     }
 
 //    auto s = std::chrono::high_resolution_clock::now();
