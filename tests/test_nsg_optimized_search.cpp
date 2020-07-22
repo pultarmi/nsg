@@ -57,6 +57,7 @@ int main(int argc, char **argv) {
     auto query_dim = (unsigned) atoi(argv[2]);
     float *query_load = NULL;
 
+    return 0;
     unsigned L = (unsigned) atoi(argv[4]);
     unsigned K = (unsigned) atoi(argv[5]);
 
