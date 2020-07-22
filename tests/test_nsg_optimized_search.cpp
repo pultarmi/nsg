@@ -72,6 +72,7 @@ int main(int argc, char **argv) {
         exit(-1);
     }
 
+    return 0;
     efanna2e::IndexNSG index(dim, points_num, efanna2e::FAST_L2, nullptr);
     index.Load(argv[3]);
     index.OptimizeGraph(data_load);
