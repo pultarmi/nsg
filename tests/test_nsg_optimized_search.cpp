@@ -7,7 +7,30 @@
 #include <chrono>
 #include <string>
 
-void load_data(float *&data, unsigned dim) {  // load data with sift10K pattern
+void load_data(char* filename, float*& data, unsigned& num,
+               unsigned& dim) {  // load data with sift10K pattern
+    std::ifstream in(filename, std::ios::binary);
+    if (!in.is_open()) {
+        std::cout << "open file error" << std::endl;
+        exit(-1);
+    }
+    in.read((char*)&dim, 4);
+    // std::cout<<"data dimension: "<<dim<<std::endl;
+    in.seekg(0, std::ios::end);
+    std::ios::pos_type ss = in.tellg();
+    size_t fsize = (size_t)ss;
+    num = (unsigned)(fsize / (dim + 1) / 4);
+    data = new float[(size_t)num * (size_t)dim];
+
+    in.seekg(0, std::ios::beg);
+    for (size_t i = 0; i < num; i++) {
+        in.seekg(4, std::ios::cur);
+        in.read((char*)(data + i * dim), dim * 4);
+    }
+    in.close();
+}
+
+void load_query(float *&data, unsigned dim) {  // load data with sift10K pattern
     std::cin.read((char *) data, dim * 4);
 }
 
@@ -55,7 +78,7 @@ int main(int argc, char **argv) {
     query_load = new float[(size_t) dim];
 
     while (1) {
-        load_data(query_load, query_dim);
+        load_query(query_load, query_dim);
 //        std::vector<std::vector<unsigned> > res(query_num);
 //        for (unsigned i = 0; i < query_num; i++) res[i].resize(K);
         std::vector<unsigned> res(K);
