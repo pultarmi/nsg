@@ -51,6 +51,7 @@ int main(int argc, char **argv) {
                   << std::endl;
         exit(-1);
     }
+    return 0;
     float *data_load = NULL;
     unsigned points_num, dim;
     load_data(argv[1], data_load, points_num, dim);
@@ -65,7 +66,6 @@ int main(int argc, char **argv) {
         exit(-1);
     }
 
-    return 0;
     efanna2e::IndexNSG index(dim, points_num, efanna2e::FAST_L2, nullptr);
 //    std::cout << 3 << std::endl;
     index.Load(argv[3]);
