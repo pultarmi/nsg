@@ -30,7 +30,6 @@ void load_data(char* filename, float*& data, unsigned& num, unsigned& dim) {  //
 }
 
 void load_query(float *&data, unsigned dim) {  // load data with sift10K pattern
-    std::cout << 12 << std::endl;
     std::cin.read((char *) data, dim * 4);
 }
 
@@ -88,12 +87,12 @@ int main(int argc, char **argv) {
 
     while (!std::cin.eof()) {
         load_query(query_load, query_dim);
-        std::cout  << 10 <<std::endl;
-        std::cout.flush();
-        return 0;
-        write_result(res);
-//        index.SearchWithOptGraph(query_load, K, paras, res.data());
+//        std::cout  << 10 <<std::endl;
+//        std::cout.flush();
+//        return 0;
 //        write_result(res);
+        index.SearchWithOptGraph(query_load, K, paras, res.data());
+        write_result(res);
     }
 
 //    auto s = std::chrono::high_resolution_clock::now();
