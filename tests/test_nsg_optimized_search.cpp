@@ -86,10 +86,12 @@ int main(int argc, char **argv) {
     std::vector<unsigned> res(K);
 
     std::cout << 10 << std::endl;
+    std::cout.flush();
 
     while (!std::cin.eof()) {
         load_query(query_load, query_dim);
         std::cout << 12 << std::endl;
+        std::cout.flush();
 //        std::cout  << 10 <<std::endl;
 //        std::cout.flush();
 //        return 0;
