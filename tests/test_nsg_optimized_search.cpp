@@ -82,10 +82,10 @@ int main(int argc, char **argv) {
     paras.Set<unsigned>("P_search", L);
 
     query_load = new float[(size_t) dim];
+    std::vector<unsigned> res(K);
 
     while (1) {
         load_query(query_load, query_dim);
-        std::vector<unsigned> res(K);
         index.SearchWithOptGraph(query_load, K, paras, res.data());
         write_result(res);
     }
