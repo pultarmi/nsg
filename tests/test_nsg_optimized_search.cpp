@@ -76,8 +76,10 @@ int main(int argc, char **argv) {
     paras.Set<unsigned>("P_search", L);
 
     query_load = new float[(size_t) dim];
+    std::cout << 10 << std::endl;
 
     while (1) {
+        std::cout << 10 << std::endl;
         load_query(query_load, query_dim);
 //        std::vector<std::vector<unsigned> > res(query_num);
 //        for (unsigned i = 0; i < query_num; i++) res[i].resize(K);
