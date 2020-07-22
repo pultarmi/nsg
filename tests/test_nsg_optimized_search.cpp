@@ -79,6 +79,7 @@ int main(int argc, char **argv) {
 //    std::cout << 4 << std::endl;
 
     query_load = new float[(size_t) dim];
+    return 0;
 
     while (1) {
 //        std::cout << 10 << std::endl;
