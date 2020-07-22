@@ -87,8 +87,9 @@ int main(int argc, char **argv) {
 
     while (!std::cin.eof()) {
         load_query(query_load, query_dim);
-        index.SearchWithOptGraph(query_load, K, paras, res.data());
         write_result(res);
+//        index.SearchWithOptGraph(query_load, K, paras, res.data());
+//        write_result(res);
     }
 
 //    auto s = std::chrono::high_resolution_clock::now();
