@@ -66,17 +66,17 @@ int main(int argc, char **argv) {
     }
 
     efanna2e::IndexNSG index(dim, points_num, efanna2e::FAST_L2, nullptr);
-//    std::cout << 3 << std::endl;
+    std::cout << 3 << std::endl;
     index.Load(argv[3]);
-//    std::cout << 4 << std::endl;
+    std::cout << 4 << std::endl;
     index.OptimizeGraph(data_load);
-//    std::cout << 5 << std::endl;
+    std::cout << 5 << std::endl;
     assert(dim == query_dim);
 
     efanna2e::Parameters paras;
     paras.Set<unsigned>("L_search", L);
     paras.Set<unsigned>("P_search", L);
-//    std::cout << 4 << std::endl;
+    std::cout << 4 << std::endl;
 
     query_load = new float[(size_t) dim];
 
