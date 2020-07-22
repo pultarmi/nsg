@@ -84,7 +84,7 @@ int main(int argc, char **argv) {
     query_load = new float[(size_t) dim];
     std::vector<unsigned> res(K);
 
-    while (1) {
+    while (!std::cin.eof()) {
         load_query(query_load, query_dim);
         index.SearchWithOptGraph(query_load, K, paras, res.data());
         write_result(res);
