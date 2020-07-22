@@ -84,7 +84,7 @@ int main(int argc, char **argv) {
         std::vector<unsigned> res(K);
 //        res.resize(K);
         index.SearchWithOptGraph(query_load, K, paras, res.data());
-        std::cout << 10 << std::endl;
+        std::cout << 3.14 << std::endl;
     }
 
 //    auto s = std::chrono::high_resolution_clock::now();
