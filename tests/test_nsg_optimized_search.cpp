@@ -52,7 +52,6 @@ void write_result( std::vector<unsigned> &results) {
 }
 
 int main(int argc, char **argv) {
-    return 0;
     if (argc != 6) {
         std::cout << argv[0]
                   << " data_file query_dim nsg_path search_L search_K"
@@ -73,7 +72,6 @@ int main(int argc, char **argv) {
         exit(-1);
     }
 
-    return 0;
     efanna2e::IndexNSG index(dim, points_num, efanna2e::FAST_L2, nullptr);
     index.Load(argv[3]);
     index.OptimizeGraph(data_load);
@@ -86,10 +84,10 @@ int main(int argc, char **argv) {
 
     query_load = new float[(size_t) dim];
     std::vector<unsigned> res(K);
-    return 0;
 
     while (!std::cin.eof()) {
         load_query(query_load, query_dim);
+        std::cout  << 10 <<std::endl;
         return 0;
         write_result(res);
 //        index.SearchWithOptGraph(query_load, K, paras, res.data());
