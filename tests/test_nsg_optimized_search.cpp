@@ -65,6 +65,7 @@ int main(int argc, char **argv) {
         exit(-1);
     }
 
+    return 0;
     efanna2e::IndexNSG index(dim, points_num, efanna2e::FAST_L2, nullptr);
 //    std::cout << 3 << std::endl;
     index.Load(argv[3]);
@@ -79,7 +80,6 @@ int main(int argc, char **argv) {
 //    std::cout << 4 << std::endl;
 
     query_load = new float[(size_t) dim];
-    return 0;
 
     while (1) {
 //        std::cout << 10 << std::endl;
