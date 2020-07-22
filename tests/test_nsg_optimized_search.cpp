@@ -58,7 +58,7 @@ int main(int argc, char **argv) {
     auto query_dim = (unsigned) atoi(argv[2]);
     float *query_load = NULL;
 
-    std::cout << 1;
+    std::cout << 1 << std::endl;
     unsigned L = (unsigned) atoi(argv[4]);
     unsigned K = (unsigned) atoi(argv[5]);
 
@@ -67,7 +67,7 @@ int main(int argc, char **argv) {
         exit(-1);
     }
 
-    std::cout << 2;
+    std::cout << 2 << std::endl;
     efanna2e::IndexNSG index(dim, points_num, efanna2e::FAST_L2, nullptr);
     index.Load(argv[3]);
     index.OptimizeGraph(data_load);
