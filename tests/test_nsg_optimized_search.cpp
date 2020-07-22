@@ -84,6 +84,7 @@ int main(int argc, char **argv) {
 
     query_load = new float[(size_t) dim];
     std::vector<unsigned> res(K);
+    return 0;
 
     while (!std::cin.eof()) {
         load_query(query_load, query_dim);
