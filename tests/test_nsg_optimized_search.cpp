@@ -85,14 +85,17 @@ int main(int argc, char **argv) {
     query_load = new float[(size_t) dim];
     std::vector<unsigned> res(K);
 
+    std::cout << 10 << std::endl;
+
     while (!std::cin.eof()) {
         load_query(query_load, query_dim);
+        std::cout << 12 << std::endl;
 //        std::cout  << 10 <<std::endl;
 //        std::cout.flush();
 //        return 0;
 //        write_result(res);
-        index.SearchWithOptGraph(query_load, K, paras, res.data());
-        write_result(res);
+//        index.SearchWithOptGraph(query_load, K, paras, res.data());
+//        write_result(res);
     }
 
 //    auto s = std::chrono::high_resolution_clock::now();
