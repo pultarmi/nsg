@@ -45,7 +45,7 @@ void save_result(const char *filename, std::vector<std::vector<unsigned> > &resu
 }
 
 int main(int argc, char **argv) {
-    if (argc != 6) {
+    if (argc != 7) {
         std::cout << argv[0]
                   << " data_file query_dim nsg_path search_L search_K result_path"
                   << std::endl;
@@ -57,7 +57,6 @@ int main(int argc, char **argv) {
     auto query_dim = (unsigned) atoi(argv[2]);
     float *query_load = NULL;
 
-    return 0;
     unsigned L = (unsigned) atoi(argv[4]);
     unsigned K = (unsigned) atoi(argv[5]);
 
