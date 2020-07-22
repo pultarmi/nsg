@@ -58,7 +58,6 @@ int main(int argc, char **argv) {
     auto query_dim = (unsigned) atoi(argv[2]);
     float *query_load = NULL;
 
-    std::cout << 1 << std::endl;
     unsigned L = (unsigned) atoi(argv[4]);
     unsigned K = (unsigned) atoi(argv[5]);
 
@@ -72,13 +71,14 @@ int main(int argc, char **argv) {
     index.Load(argv[3]);
     index.OptimizeGraph(data_load);
     assert(dim == query_dim);
+    std::cout << 3 << std::endl;
 
     efanna2e::Parameters paras;
     paras.Set<unsigned>("L_search", L);
     paras.Set<unsigned>("P_search", L);
+    std::cout << 4 << std::endl;
 
     query_load = new float[(size_t) dim];
-    std::cout << 10;
 
     while (1) {
         std::cout << 10 << std::endl;
