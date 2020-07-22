@@ -31,6 +31,7 @@ int main(int argc, char **argv) {
     }
     float *data_load = NULL;
     unsigned points_num, dim;
+    load_data(argv[1], data_load, points_num, dim);
     auto query_dim = (unsigned) atoi(argv[2]);
     float *query_load = NULL;
 
