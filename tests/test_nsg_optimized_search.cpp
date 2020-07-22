@@ -58,6 +58,8 @@ int main(int argc, char **argv) {
                   << std::endl;
         exit(-1);
     }
+    std::cout << 10 << std::endl;
+    std::cout.flush();
     float *data_load = NULL;
     unsigned points_num, dim;
     load_data(argv[1], data_load, points_num, dim);
