@@ -51,7 +51,6 @@ int main(int argc, char **argv) {
                   << std::endl;
         exit(-1);
     }
-    return 0;
     float *data_load = NULL;
     unsigned points_num, dim;
     load_data(argv[1], data_load, points_num, dim);
