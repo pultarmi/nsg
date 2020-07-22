@@ -48,6 +48,7 @@ void write_result( std::vector<unsigned> &results) {
     unsigned GK = (unsigned) results.size();
 //    std::cout.write((char *) &GK, sizeof(unsigned));
     std::cout.write((char *) results.data(), GK * sizeof(unsigned));
+    std::cout.flush();
 }
 
 int main(int argc, char **argv) {
