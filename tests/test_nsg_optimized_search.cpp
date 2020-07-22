@@ -66,7 +66,8 @@ int main(int argc, char **argv) {
         exit(-1);
     }
 
-    std::cout << 2 << std::endl;
+    std::cout << dim << std::endl;
+    std::cout << points_num << std::endl;
     efanna2e::IndexNSG index(dim, points_num, efanna2e::FAST_L2, nullptr);
     index.Load(argv[3]);
     index.OptimizeGraph(data_load);
