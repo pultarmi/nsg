@@ -45,22 +45,21 @@ int main(int argc, char **argv) {
     efanna2e::IndexNSG index(dim, points_num, efanna2e::FAST_L2, nullptr);
     index.Load(argv[3]);
     index.OptimizeGraph(data_load);
+    assert(dim == query_dim);
 
     efanna2e::Parameters paras;
     paras.Set<unsigned>("L_search", L);
     paras.Set<unsigned>("P_search", L);
 
-    query_load = new float[(size_t) (size_t) dim];
+    query_load = new float[(size_t) dim];
 
     while (1) {
         load_data(query_load, query_dim);
-        assert(dim == query_dim);
-        std::vector<std::vector<unsigned> > res(query_num);
-        for (unsigned i = 0; i < query_num; i++) res[i].resize(K);
-
-        for (unsigned i = 0; i < query_num; i++) {
-            index.SearchWithOptGraph(query_load + i * dim, K, paras, res[i].data());
-        }
+//        std::vector<std::vector<unsigned> > res(query_num);
+//        for (unsigned i = 0; i < query_num; i++) res[i].resize(K);
+        std::vector<unsigned> res(K);
+//        res.resize(K);
+        index.SearchWithOptGraph(query_load, K, paras, res.data());
     }
 
 //    auto s = std::chrono::high_resolution_clock::now();
