@@ -94,7 +94,7 @@ int main(int argc, char **argv) {
 //    std::chrono::duration<double> diff = e - s;
 //    std::cout << "search time: " << diff.count() << "\n";
 //
-    save_result(argv[6], res);
+//    save_result(argv[6], res);
 
     return 0;
 }
