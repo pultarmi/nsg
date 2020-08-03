@@ -12,8 +12,7 @@
 namespace efanna2e {
 #define _CONTROL_NUM 100
 
-    IndexNSG::IndexNSG(const size_t dimension, const size_t n, Metric m,
-                       Index *initializer)
+    IndexNSG::IndexNSG(const size_t dimension, const size_t n, Metric m, Index *initializer)
             : Index(dimension, n, m), initializer_{initializer} {}
 
     IndexNSG::~IndexNSG() {}
@@ -73,9 +72,7 @@ namespace efanna2e {
         in.close();
     }
 
-    void IndexNSG::get_neighbors(const float *query, const Parameters &parameter,
-                                 std::vector<Neighbor> &retset,
-                                 std::vector<Neighbor> &fullset) {
+    void IndexNSG::get_neighbors(const float *query, const Parameters &parameter, std::vector<Neighbor> &retset, std::vector<Neighbor> &fullset) {
         unsigned L = parameter.Get<unsigned>("L");
 
         retset.resize(L + 1);
@@ -101,11 +98,8 @@ namespace efanna2e {
         for (unsigned i = 0; i < init_ids.size(); i++) {
             unsigned id = init_ids[i];
             if (id >= nd_) continue;
-            // std::cout<<id<<std::endl;
-            float dist = distance_->compare(data_ + dimension_ * (size_t) id, query,
-                                            (unsigned) dimension_);
+            float dist = distance_->compare(data_ + dimension_ * (size_t) id, query, (unsigned) dimension_);
             retset[i] = Neighbor(id, dist, true);
-            // flags[id] = 1;
             L++;
         }
 
@@ -123,8 +117,7 @@ namespace efanna2e {
                     if (flags[id]) continue;
                     flags[id] = 1;
 
-                    float dist = distance_->compare(query, data_ + dimension_ * (size_t) id,
-                                                    (unsigned) dimension_);
+                    float dist = distance_->compare(query, data_ + dimension_ * (size_t) id, (unsigned) dimension_);
                     Neighbor nn(id, dist, true);
                     fullset.push_back(nn);
                     if (dist >= retset[L - 1].distance) continue;
@@ -141,15 +134,11 @@ namespace efanna2e {
         }
     }
 
-    void IndexNSG::get_neighbors(const float *query, const Parameters &parameter,
-                                 boost::dynamic_bitset<> &flags,
-                                 std::vector<Neighbor> &retset,
-                                 std::vector<Neighbor> &fullset) {
+    void IndexNSG::get_neighbors(const float *query, const Parameters &parameter, boost::dynamic_bitset<> &flags, std::vector<Neighbor> &retset, std::vector<Neighbor> &fullset) {
         unsigned L = parameter.Get<unsigned>("L");
 
         retset.resize(L + 1);
         std::vector<unsigned> init_ids(L);
-        // initializer_->Search(query, nullptr, L, parameter, init_ids.data());
 
         L = 0;
         for (unsigned i = 0; i < init_ids.size() && i < final_graph_[ep_].size(); i++) {
@@ -169,12 +158,9 @@ namespace efanna2e {
         for (unsigned i = 0; i < init_ids.size(); i++) {
             unsigned id = init_ids[i];
             if (id >= nd_) continue;
-            // std::cout<<id<<std::endl;
-            float dist = distance_->compare(data_ + dimension_ * (size_t) id, query,
-                                            (unsigned) dimension_);
+            float dist = distance_->compare(data_ + dimension_ * (size_t) id, query, (unsigned) dimension_);
             retset[i] = Neighbor(id, dist, true);
             fullset.push_back(retset[i]);
-            // flags[id] = 1;
             L++;
         }
 
@@ -192,8 +178,7 @@ namespace efanna2e {
                     if (flags[id]) continue;
                     flags[id] = 1;
 
-                    float dist = distance_->compare(query, data_ + dimension_ * (size_t) id,
-                                                    (unsigned) dimension_);
+                    float dist = distance_->compare(query, data_ + dimension_ * (size_t) id, (unsigned) dimension_);
                     Neighbor nn(id, dist, true);
                     fullset.push_back(nn);
                     if (dist >= retset[L - 1].distance) continue;
@@ -227,10 +212,7 @@ namespace efanna2e {
         ep_ = tmp[0].id;
     }
 
-    void IndexNSG::sync_prune(unsigned q, std::vector<Neighbor> &pool,
-                              const Parameters &parameter,
-                              boost::dynamic_bitset<> &flags,
-                              SimpleNeighbor *cut_graph_) {
+    void IndexNSG::sync_prune(unsigned q, std::vector<Neighbor> &pool, const Parameters &parameter, boost::dynamic_bitset<> &flags, SimpleNeighbor *cut_graph_) {
         unsigned range = parameter.Get<unsigned>("R");
         unsigned maxc = parameter.Get<unsigned>("C");
         width = range;
@@ -239,9 +221,8 @@ namespace efanna2e {
         for (unsigned nn = 0; nn < final_graph_[q].size(); nn++) {
             unsigned id = final_graph_[q][nn];
             if (flags[id]) continue;
-            float dist =
-                    distance_->compare(data_ + dimension_ * (size_t) q,
-                                       data_ + dimension_ * (size_t) id, (unsigned) dimension_);
+            float dist = distance_->compare(data_ + dimension_ * (size_t) q,
+                                            data_ + dimension_ * (size_t) id, (unsigned) dimension_);
             pool.push_back(Neighbor(id, dist, true));
         }
 
@@ -279,9 +260,7 @@ namespace efanna2e {
         }
     }
 
-    void IndexNSG::InterInsert(unsigned n, unsigned range,
-                               std::vector<std::mutex> &locks,
-                               SimpleNeighbor *cut_graph_) {
+    void IndexNSG::InterInsert(unsigned n, unsigned range, std::vector<std::mutex> &locks, SimpleNeighbor *cut_graph_) {
         SimpleNeighbor *src_pool = cut_graph_ + (size_t) n * (size_t) range;
         for (size_t i = 0; i < range; i++) {
             if (src_pool[i].distance == -1) break;
@@ -426,8 +405,7 @@ namespace efanna2e {
         has_built = true;
     }
 
-    void IndexNSG::Search(const float *query, const float *x, size_t K,
-                          const Parameters &parameters, unsigned *indices) {
+    void IndexNSG::Search(const float *query, const float *x, size_t K, const Parameters &parameters, unsigned *indices) {
         const unsigned L = parameters.Get<unsigned>("L_search");
         data_ = x;
         std::vector<Neighbor> retset(L + 1);
@@ -452,10 +430,8 @@ namespace efanna2e {
 
         for (unsigned i = 0; i < init_ids.size(); i++) {
             unsigned id = init_ids[i];
-            float dist =
-                    distance_->compare(data_ + dimension_ * id, query, (unsigned) dimension_);
+            float dist = distance_->compare(data_ + dimension_ * id, query, (unsigned) dimension_);
             retset[i] = Neighbor(id, dist, true);
-            // flags[id] = true;
         }
 
         std::sort(retset.begin(), retset.begin() + L);
@@ -471,8 +447,7 @@ namespace efanna2e {
                     unsigned id = final_graph_[n][m];
                     if (flags[id]) continue;
                     flags[id] = 1;
-                    float dist =
-                            distance_->compare(query, data_ + dimension_ * id, (unsigned) dimension_);
+                    float dist = distance_->compare(query, data_ + dimension_ * id, (unsigned) dimension_);
                     if (dist >= retset[L - 1].distance) continue;
                     Neighbor nn(id, dist, true);
                     int r = InsertIntoPool(retset.data(), L, nn);
@@ -490,15 +465,12 @@ namespace efanna2e {
         }
     }
 
-    void IndexNSG::SearchWithOptGraph(const float *query, size_t K,
-                                      const Parameters &parameters, unsigned *indices) {
+    void IndexNSG::SearchWithOptGraph(const float *query, size_t K, const Parameters &parameters, unsigned *indices) {
         unsigned L = parameters.Get<unsigned>("L_search");
         DistanceFastL2 *dist_fast = (DistanceFastL2 *) distance_;
 
         std::vector<Neighbor> retset(L + 1);
         std::vector<unsigned> init_ids(L);
-        // std::mt19937 rng(rand());
-        // GenRandom(rng, init_ids.data(), L, (unsigned) nd_);
 
         boost::dynamic_bitset<> flags{nd_, 0};
         unsigned tmp_l = 0;
@@ -536,7 +508,6 @@ namespace efanna2e {
             flags[id] = true;
             L++;
         }
-        // std::cout<<L<<std::endl;
 
         std::sort(retset.begin(), retset.begin() + L);
         int k = 0;
@@ -565,7 +536,6 @@ namespace efanna2e {
                     Neighbor nn(id, dist, true);
                     int r = InsertIntoPool(retset.data(), L, nn);
 
-                    // if(L+1 < retset.size()) ++L;
                     if (r < nk) nk = r;
                 }
             }
@@ -580,7 +550,6 @@ namespace efanna2e {
     }
 
     void IndexNSG::OptimizeGraph(float *data) {  // use after build or load
-
         data_ = data;
         data_len = (dimension_ + 1) * sizeof(float);
         neighbor_len = (width + 1) * sizeof(unsigned);
@@ -591,14 +560,12 @@ namespace efanna2e {
             char *cur_node_offset = opt_graph_ + i * node_size;
             float cur_norm = dist_fast->norm(data_ + i * dimension_, dimension_);
             std::memcpy(cur_node_offset, &cur_norm, sizeof(float));
-            std::memcpy(cur_node_offset + sizeof(float), data_ + i * dimension_,
-                        data_len - sizeof(float));
+            std::memcpy(cur_node_offset + sizeof(float), data_ + i * dimension_, data_len - sizeof(float));
 
             cur_node_offset += data_len;
             unsigned k = final_graph_[i].size();
             std::memcpy(cur_node_offset, &k, sizeof(unsigned));
-            std::memcpy(cur_node_offset + sizeof(unsigned), final_graph_[i].data(),
-                        k * sizeof(unsigned));
+            std::memcpy(cur_node_offset + sizeof(unsigned), final_graph_[i].data(), k * sizeof(unsigned));
             std::vector<unsigned>().swap(final_graph_[i]);
         }
         CompactGraph().swap(final_graph_);
@@ -632,8 +599,7 @@ namespace efanna2e {
         }
     }
 
-    void IndexNSG::findroot(boost::dynamic_bitset<> &flag, unsigned &root,
-                            const Parameters &parameter) {
+    void IndexNSG::findroot(boost::dynamic_bitset<> &flag, unsigned &root, const Parameters &parameter) {
         unsigned id = nd_;
         for (unsigned i = 0; i < nd_; i++) {
             if (flag[i] == false) {
