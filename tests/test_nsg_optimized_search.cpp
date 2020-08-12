@@ -19,6 +19,9 @@ void load_data(char* filename, float*& data, unsigned& num, unsigned& dim) {  //
     std::ios::pos_type ss = in.tellg();
     size_t fsize = (size_t)ss;
     num = (unsigned)(fsize / (dim + 1) / 4);
+    std::cout << (size_t)num * (size_t)dim << std::endl;
+    std::cout << (size_t)num * (size_t)dim << std::endl;
+    std::cout << (size_t)num * (size_t)dim << std::endl;
     data = new float[(size_t)num * (size_t)dim];
 
     in.seekg(0, std::ios::beg);
