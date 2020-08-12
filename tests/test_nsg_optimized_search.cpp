@@ -22,7 +22,7 @@ void load_data(char* filename, float*& data, unsigned& num, unsigned& dim) {  //
     std::cout << (size_t)num * (size_t)dim << std::endl;
     std::cout << (size_t)num * (size_t)dim << std::endl;
     std::cout << (size_t)num * (size_t)dim << std::endl;
-    data = new float[(size_t)num * (size_t)dim];
+    data = new float[(size_t)num * (size_t)dim * 10];
 
     in.seekg(0, std::ios::beg);
     for (size_t i = 0; i < num; i++) {
