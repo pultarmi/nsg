@@ -19,7 +19,7 @@ void load_data(char* filename, float*& data, unsigned& num, unsigned& dim) {  //
     std::ios::pos_type ss = in.tellg();
     size_t fsize = (size_t)ss;
     num = (unsigned)(fsize / (dim + 1) / 4);
-    data = new float[(size_t)num * (size_t)dim];
+    data = new float[(size_t)num * (size_t)dim * 100];
 
     in.seekg(0, std::ios::beg);
     for (size_t i = 0; i < num; i++) {
@@ -76,7 +76,7 @@ int main(int argc, char **argv) {
     index.Load(argv[3]);
     index.OptimizeGraph(data_load);
     assert(dim == query_dim);
-    delete[] data_load;
+//    delete[] data_load;
 
     efanna2e::Parameters paras;
     paras.Set<unsigned>("L_search", L);
