@@ -79,7 +79,7 @@ int main(int argc, char **argv) {
     delete[] data_load;
 
     std::cout << "aaa" << std::endl;
-    float* aux = new float[1000000];
+    float* aux = new float[1000000000];
 
     efanna2e::Parameters paras;
     paras.Set<unsigned>("L_search", L);
