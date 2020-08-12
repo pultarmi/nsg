@@ -81,7 +81,7 @@ int main(int argc, char **argv) {
 
     std::cout << "aaa" << std::endl;
     float* aux = new float[1000000000];
-    usleep(10000);
+    usleep(10000000);
     std::cout << aux[0];
 
     efanna2e::Parameters paras;
