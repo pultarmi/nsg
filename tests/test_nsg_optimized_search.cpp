@@ -6,6 +6,7 @@
 #include <efanna2e/util.h>
 #include <chrono>
 #include <string>
+#include <unistd.h>
 
 void load_data(char* filename, float*& data, unsigned& num, unsigned& dim) {  // load data with sift10K pattern
     std::ifstream in(filename, std::ios::binary);
@@ -78,10 +79,10 @@ int main(int argc, char **argv) {
     assert(dim == query_dim);
     delete[] data_load;
 
-//    std::cout << "aaa" << std::endl;
-//    float* aux = new float[1000000000];
-//    std::cout << aux[0];
-//    std::
+    std::cout << "aaa" << std::endl;
+    float* aux = new float[1000000000];
+    std::cout << aux[0];
+    usleep(10000);
 
     efanna2e::Parameters paras;
     paras.Set<unsigned>("L_search", L);
