@@ -76,7 +76,7 @@ int main(int argc, char **argv) {
     index.Load(argv[3]);
     index.OptimizeGraph(data_load);
     assert(dim == query_dim);
-//    delete[] data_load;
+    delete[] data_load;
 
     efanna2e::Parameters paras;
     paras.Set<unsigned>("L_search", L);
