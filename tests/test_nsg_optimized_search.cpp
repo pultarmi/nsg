@@ -79,11 +79,6 @@ int main(int argc, char **argv) {
     assert(dim == query_dim);
     delete[] data_load;
 
-    std::cout << "aaa" << std::endl;
-    float* aux = new float[1000000000];
-    usleep(10000000);
-    std::cout << aux[0];
-
     efanna2e::Parameters paras;
     paras.Set<unsigned>("L_search", L);
     paras.Set<unsigned>("P_search", L);
@@ -96,16 +91,5 @@ int main(int argc, char **argv) {
         index.SearchWithOptGraph(query_load, K, paras, res.data());
         write_result(res);
     }
-
-//    auto s = std::chrono::high_resolution_clock::now();
-//    for (unsigned i = 0; i < query_num; i++) {
-//        index.SearchWithOptGraph(query_load + i * dim, K, paras, res[i].data());
-//    }
-//    auto e = std::chrono::high_resolution_clock::now();
-//    std::chrono::duration<double> diff = e - s;
-//    std::cout << "search time: " << diff.count() << "\n";
-//
-//    save_result(argv[6], res);
-
     return 0;
 }
