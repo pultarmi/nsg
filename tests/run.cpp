@@ -1,6 +1,8 @@
 #include "run.h"
 #include <efanna2e/index_nsg.h>
 #include <efanna2e/util.h>
+#include <iostream>
+#include <filesystem>
 
 
 void load_data(char* filename, float*& data, unsigned& num, unsigned& dim) {  // load data with sift10K pattern
@@ -79,10 +81,13 @@ public:
         write_result(res);
     }
 };
+// path='/home/mpultar/Data/mix_fc:plus_pca:pca-P5-36_splits:36_1-1--1_nsg/0'
 // ~/nsg/build/tests/run $path/embeds.fvecs 128 $path/embeds.nsg 300 100
+// ~/nsg/build/tests/run $path 128 $path/embeds.nsg 300 100
 int main(int argc, char **argv) {
 //    std::cout << argv[0] << " data_file query_dim nsg_path search_L search_K" << std::endl;
     char* filename = argv[1];
+    std::filesystem::path p1 = filename;
     std::cout << "listening" << std::endl;
     auto query_dim = (unsigned) atoi(argv[2]);
     const char *nsg_path = argv[3];
