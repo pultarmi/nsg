@@ -1,6 +1,6 @@
 set(CMAKE_CXX_STANDARD 11)
 
-add_executable(test_nsg_index test_nsg_index.cpp own.cpp own.h)
+add_executable(test_nsg_index test_nsg_index.cpp)
 target_link_libraries(test_nsg_index ${PROJECT_NAME} -ltcmalloc)
 
 add_executable(own own.cpp )
