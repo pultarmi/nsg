@@ -46,12 +46,9 @@ public:
     unsigned K,L;
     efanna2e::IndexNSG* index;
     Searcher(const char* filename, unsigned query_dim, const char *nsg_path, unsigned L, unsigned K){
-        std::cout << "listening" << std::endl;
         float *data_load = NULL;
         unsigned points_num, dim;
-        std::cout << "listening" << std::endl;
         load_data(filename, data_load, points_num, dim);
-        std::cout << "listening" << std::endl;
 //        auto query_dim = (unsigned) atoi(argv[2]);
         float *query_load = NULL;
 
@@ -72,7 +69,6 @@ public:
         delete[] data_load;
 
         query_load = new float[(size_t) dim];
-        std::cout << "listening" << std::endl;
     }
 
     void search(float* query_load){
@@ -86,20 +82,26 @@ public:
         write_result(res);
     }
 };
-// path='/home/mpultar/Data/mix_fc:plus_pca:pca-P5-36_splits:36_1-1--1_nsg/0'
+// path='/home/mpultar/Data/mix_fc:plus_pca:pca-P5-36_splits:36_1-1--1_nsg'
 // ~/nsg/build/tests/run $path 128 $path 300 100
 int main(int argc, char **argv) {
 //    std::cout << argv[0] << " data_file query_dim nsg_path search_L search_K" << std::endl;
     char* filename = argv[1];
     fs::path p1 = filename;
-    p1 /= "embeds.fvecs";
     std::cout << p1 << std::endl;
     auto query_dim = (unsigned) atoi(argv[2]);
     char* nsg_path = argv[3];
     fs::path p2 = nsg_path;
-    p2 /= "embeds.nsg";
     unsigned L = (unsigned) atoi(argv[4]);
     unsigned K = (unsigned) atoi(argv[5]);
-    Searcher searcher(p1.string().c_str(), query_dim, p2.string().c_str(), L, K);
+    std::vector<Searcher> searchers;
+    for(int i=0; i < 36; i++) {
+        p1 /= std::to_string(i);
+        p1 /= "embeds.fvecs";
+        p2 /= std::to_string(i);
+        p2 /= "embeds.nsg";
+        Searcher searcher(p1.string().c_str(), query_dim, p2.string().c_str(), L, K);
+        searchers.push_back(searcher);
+    }
     return 0;
 }
