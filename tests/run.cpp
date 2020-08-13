@@ -84,17 +84,16 @@ public:
     }
 };
 // path='/home/mpultar/Data/mix_fc:plus_pca:pca-P5-36_splits:36_1-1--1_nsg/0'
-// ~/nsg/build/tests/run $path/embeds.fvecs 128 $path/embeds.nsg 300 100
-// ~/nsg/build/tests/run $path 128 $path/embeds.nsg 300 100
+// ~/nsg/build/tests/run $path 128 $path 300 100
 int main(int argc, char **argv) {
 //    std::cout << argv[0] << " data_file query_dim nsg_path search_L search_K" << std::endl;
     char* filename = argv[1];
     fs::path p1 = filename;
     p1 /= "embeds.fvecs";
-    std::cout << p1 << std::endl;
-    std::cout << "listening" << std::endl;
+    std::cout << p1 << std::endl;    std::cout << "listening" << std::endl;
     auto query_dim = (unsigned) atoi(argv[2]);
-    const char *nsg_path = argv[3];
+    char *nsg_path = argv[3];
+    nsg_path /= "embeds.nsg";
     unsigned L = (unsigned) atoi(argv[4]);
     unsigned K = (unsigned) atoi(argv[5]);
     Searcher searcher(filename, query_dim, nsg_path, L, K);
