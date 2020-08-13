@@ -1,4 +1,4 @@
-set(CMAKE_CXX_STANDARD 17)
+set(CMAKE_CXX_STANDARD 20)
 
 add_executable(test_nsg_index test_nsg_index.cpp)
 target_link_libraries(test_nsg_index ${PROJECT_NAME} -ltcmalloc)
