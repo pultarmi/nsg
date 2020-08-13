@@ -7,7 +7,7 @@
 namespace fs = std::experimental::filesystem;
 
 
-void load_data(char* filename, float*& data, unsigned& num, unsigned& dim) {  // load data with sift10K pattern
+void load_data(const char* filename, float*& data, unsigned& num, unsigned& dim) {  // load data with sift10K pattern
     std::ifstream in(filename, std::ios::binary);
     if (!in.is_open()) {
         std::cout << "open file error" << std::endl;
@@ -45,7 +45,7 @@ public:
     unsigned query_dim;
     unsigned K,L;
     efanna2e::IndexNSG* index;
-    Searcher(char* filename, unsigned query_dim, const char *nsg_path, unsigned L, unsigned K){
+    Searcher(const char* filename, unsigned query_dim, const char *nsg_path, unsigned L, unsigned K){
         float *data_load = NULL;
         unsigned points_num, dim;
         load_data(filename, data_load, points_num, dim);
