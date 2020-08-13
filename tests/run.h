@@ -2,10 +2,10 @@
 // Created by milan on 13/08/2020.
 //
 
-#ifndef EFANNA2E_OWN_H
-#define EFANNA2E_OWN_H
+#ifndef EFANNA2E_RUN_H
+#define EFANNA2E_RUN_H
 
-class own {
+class run {
 
 };
 

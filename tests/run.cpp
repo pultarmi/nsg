@@ -1,12 +1,6 @@
-//
-// Created by 付聪 on 2017/6/21.
-//
-
+#include "run.h"
 #include <efanna2e/index_nsg.h>
 #include <efanna2e/util.h>
-//#include <chrono>
-#include <string>
-#include <unistd.h>
 
 void load_data(char* filename, float*& data, unsigned& num, unsigned& dim) {  // load data with sift10K pattern
     std::ifstream in(filename, std::ios::binary);
@@ -34,17 +28,6 @@ void load_query(float *&data, unsigned dim) {  // load data with sift10K pattern
     std::cin.read((char *) data, dim * 4);
 }
 
-void save_result(const char *filename, std::vector<std::vector<unsigned> > &results) {
-    std::ofstream out(filename, std::ios::binary | std::ios::out);
-
-    for (unsigned i = 0; i < results.size(); i++) {
-        unsigned GK = (unsigned) results[i].size();
-        out.write((char *) &GK, sizeof(unsigned));
-        out.write((char *) results[i].data(), GK * sizeof(unsigned));
-    }
-    out.close();
-}
-
 void write_result( std::vector<unsigned> &results) {
     unsigned GK = (unsigned) results.size();
 //    std::cout.write((char *) &GK, sizeof(unsigned));
@@ -53,6 +36,7 @@ void write_result( std::vector<unsigned> &results) {
 }
 
 int main(int argc, char **argv) {
+
     if (argc != 6) {
         std::cout << argv[0] << " data_file query_dim nsg_path search_L search_K" << std::endl;
         exit(-1);
