@@ -94,12 +94,13 @@ int main(int argc, char **argv) {
     unsigned L = (unsigned) atoi(argv[4]);
     unsigned K = (unsigned) atoi(argv[5]);
     std::vector<Searcher> searchers;
+    std::cout << p1 << std::endl;
     for(int i=0; i < 36; i++) {
+        std::cout << p1 << std::endl;
         p1 /= std::to_string(i);
         p1 /= "embeds.fvecs";
         p2 /= std::to_string(i);
         p2 /= "embeds.nsg";
-        std::cout << p1 << std::endl;
         Searcher searcher(p1.string().c_str(), query_dim, p2.string().c_str(), L, K);
         searchers.push_back(searcher);
     }
