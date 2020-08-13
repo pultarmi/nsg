@@ -88,7 +88,6 @@ int main(int argc, char **argv) {
 //    std::cout << argv[0] << " data_file query_dim nsg_path search_L search_K" << std::endl;
     char* filename = argv[1];
     fs::path p1 = filename;
-    std::cout << p1 << std::endl;
     auto query_dim = (unsigned) atoi(argv[2]);
     char* nsg_path = argv[3];
     fs::path p2 = nsg_path;
@@ -100,6 +99,7 @@ int main(int argc, char **argv) {
         p1 /= "embeds.fvecs";
         p2 /= std::to_string(i);
         p2 /= "embeds.nsg";
+        std::cout << p1 << std::endl;
         Searcher searcher(p1.string().c_str(), query_dim, p2.string().c_str(), L, K);
         searchers.push_back(searcher);
     }
