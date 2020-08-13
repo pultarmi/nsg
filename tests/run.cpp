@@ -97,6 +97,6 @@ int main(int argc, char **argv) {
     p2 /= "embeds.nsg";
     unsigned L = (unsigned) atoi(argv[4]);
     unsigned K = (unsigned) atoi(argv[5]);
-    Searcher searcher(p1, query_dim, p2, L, K);
+    Searcher searcher(fs::string(p1), query_dim, fs:string(p2), L, K);
     return 0;
 }
