@@ -49,10 +49,11 @@ public:
         std::cout << "listening" << std::endl;
         float *data_load = NULL;
         unsigned points_num, dim;
+        std::cout << "listening" << std::endl;
         load_data(filename, data_load, points_num, dim);
+        std::cout << "listening" << std::endl;
 //        auto query_dim = (unsigned) atoi(argv[2]);
         float *query_load = NULL;
-        std::cout << "listening" << std::endl;
 
 //        unsigned L = (unsigned) atoi(argv[4]);
 //        unsigned K = (unsigned) atoi(argv[5]);
