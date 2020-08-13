@@ -4,7 +4,7 @@
 
 #include <efanna2e/index_nsg.h>
 #include <efanna2e/util.h>
-#include <chrono>
+//#include <chrono>
 #include <string>
 #include <unistd.h>
 
