@@ -4,6 +4,8 @@
 #include <iostream>
 #include <experimental/filesystem>
 
+namespace fs = std::filesystem;
+
 
 void load_data(char* filename, float*& data, unsigned& num, unsigned& dim) {  // load data with sift10K pattern
     std::ifstream in(filename, std::ios::binary);
@@ -87,7 +89,7 @@ public:
 int main(int argc, char **argv) {
 //    std::cout << argv[0] << " data_file query_dim nsg_path search_L search_K" << std::endl;
     char* filename = argv[1];
-    std::filesystem::path p1 = filename;
+    fs::path p1 = filename;
     std::cout << "listening" << std::endl;
     auto query_dim = (unsigned) atoi(argv[2]);
     const char *nsg_path = argv[3];
