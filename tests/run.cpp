@@ -36,42 +36,49 @@ void write_result( std::vector<unsigned> &results) {
     std::cout.flush();
 }
 
-int main(int argc, char **argv) {
-    if (argc != 6) {
-        std::cout << argv[0] << " data_file query_dim nsg_path search_L search_K" << std::endl;
-        exit(-1);
+class Searcher{
+public:
+    unsigned query_dim;
+    unsigned K,L;
+    efanna2e::IndexNSG* index;
+    Searcher(char* filename, unsigned query_dim, const char *nsg_path, unsigned L, unsigned K){
+        float *data_load = NULL;
+        unsigned points_num, dim;
+        load_data(filename, data_load, points_num, dim);
+//        auto query_dim = (unsigned) atoi(argv[2]);
+        float *query_load = NULL;
+
+//        unsigned L = (unsigned) atoi(argv[4]);
+//        unsigned K = (unsigned) atoi(argv[5]);
+        this->K = K;
+        this->L = L;
+        if (L < K) {
+            std::cout << "search_L cannot be smaller than search_K!" << std::endl;
+            exit(-1);
+        }
+
+        this->index = new efanna2e::IndexNSG(dim, points_num, efanna2e::FAST_L2, nullptr);
+        index->Load(nsg_path);
+        index->OptimizeGraph(data_load);
+        this->query_dim = query_dim;
+        assert(dim == query_dim);
+        delete[] data_load;
+
+        query_load = new float[(size_t) dim];
     }
-    float *data_load = NULL;
-    unsigned points_num, dim;
-    load_data(argv[1], data_load, points_num, dim);
-    auto query_dim = (unsigned) atoi(argv[2]);
-    float *query_load = NULL;
 
-    unsigned L = (unsigned) atoi(argv[4]);
-    unsigned K = (unsigned) atoi(argv[5]);
+    void search(float* query_load){
+        efanna2e::Parameters paras;
+        paras.Set<unsigned>("L_search", L);
+        paras.Set<unsigned>("P_search", L);
 
-    if (L < K) {
-        std::cout << "search_L cannot be smaller than search_K!" << std::endl;
-        exit(-1);
-    }
-
-    efanna2e::IndexNSG index(dim, points_num, efanna2e::FAST_L2, nullptr);
-    index.Load(argv[3]);
-    index.OptimizeGraph(data_load);
-    assert(dim == query_dim);
-    delete[] data_load;
-
-    efanna2e::Parameters paras;
-    paras.Set<unsigned>("L_search", L);
-    paras.Set<unsigned>("P_search", L);
-
-    query_load = new float[(size_t) dim];
-    std::vector<unsigned> res(K);
-
-    while (!std::cin.eof()) {
+        std::vector<unsigned> res(K);
         load_query(query_load, query_dim);
-        index.SearchWithOptGraph(query_load, K, paras, res.data());
+        index->SearchWithOptGraph(query_load, K, paras, res.data());
         write_result(res);
     }
+};
+
+int main(int argc, char **argv) {
     return 0;
 }

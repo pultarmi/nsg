@@ -6,7 +6,6 @@
 #define EFANNA2E_RUN_H
 
 class run {
-
 };
 
 //#endif //KNNC_MAIN_H
