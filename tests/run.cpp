@@ -4,7 +4,7 @@
 #include <iostream>
 #include <experimental/filesystem>
 
-namespace fs = std::filesystem;
+namespace fs = std::experimental::filesystem;
 
 
 void load_data(char* filename, float*& data, unsigned& num, unsigned& dim) {  // load data with sift10K pattern
