@@ -92,10 +92,11 @@ int main(int argc, char **argv) {
     p1 /= "embeds.fvecs";
     std::cout << p1 << std::endl;    std::cout << "listening" << std::endl;
     auto query_dim = (unsigned) atoi(argv[2]);
-    char *nsg_path = argv[3];
-    nsg_path /= "embeds.nsg";
+    char* nsg_path = argv[3];
+    fs::path p2 = nsg_path;
+    p2 /= "embeds.nsg";
     unsigned L = (unsigned) atoi(argv[4]);
     unsigned K = (unsigned) atoi(argv[5]);
-    Searcher searcher(filename, query_dim, nsg_path, L, K);
+    Searcher searcher(p1, query_dim, p2, L, K);
     return 0;
 }
