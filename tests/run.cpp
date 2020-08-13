@@ -80,5 +80,12 @@ public:
 };
 
 int main(int argc, char **argv) {
+//    std::cout << argv[0] << " data_file query_dim nsg_path search_L search_K" << std::endl;
+    char* filename = argv[1];
+    auto query_dim = (unsigned) atoi(argv[2]);
+    const char *nsg_path = argv[3];
+    unsigned L = (unsigned) atoi(argv[4]);
+    unsigned K = (unsigned) atoi(argv[5]);
+    Searcher searcher(filename, query_dim, nsg_path, L, K);
     return 0;
 }
