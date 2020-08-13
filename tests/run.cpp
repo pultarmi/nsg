@@ -46,11 +46,13 @@ public:
     unsigned K,L;
     efanna2e::IndexNSG* index;
     Searcher(const char* filename, unsigned query_dim, const char *nsg_path, unsigned L, unsigned K){
+        std::cout << "listening" << std::endl;
         float *data_load = NULL;
         unsigned points_num, dim;
         load_data(filename, data_load, points_num, dim);
 //        auto query_dim = (unsigned) atoi(argv[2]);
         float *query_load = NULL;
+        std::cout << "listening" << std::endl;
 
 //        unsigned L = (unsigned) atoi(argv[4]);
 //        unsigned K = (unsigned) atoi(argv[5]);
@@ -90,7 +92,7 @@ int main(int argc, char **argv) {
     char* filename = argv[1];
     fs::path p1 = filename;
     p1 /= "embeds.fvecs";
-    std::cout << p1 << std::endl;    std::cout << "listening" << std::endl;
+    std::cout << p1 << std::endl;
     auto query_dim = (unsigned) atoi(argv[2]);
     char* nsg_path = argv[3];
     fs::path p2 = nsg_path;
