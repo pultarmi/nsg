@@ -96,8 +96,8 @@ int main(int argc, char **argv) {
     std::vector<Searcher> searchers;
     std::cout << p1 << std::endl;
     for(int i=0; i < 36; i++) {
-        std::cout << p1 << std::endl;
         p1 /= std::to_string(i);
+        std::cout << p1 << std::endl;
         p1 /= "embeds.fvecs";
         p2 /= std::to_string(i);
         p2 /= "embeds.nsg";
