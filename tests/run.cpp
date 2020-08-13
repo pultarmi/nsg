@@ -68,6 +68,7 @@ public:
     }
 
     void search(float* query_load){
+        std::cout << "listening" << std::endl;
         efanna2e::Parameters paras;
         paras.Set<unsigned>("L_search", L);
         paras.Set<unsigned>("P_search", L);
