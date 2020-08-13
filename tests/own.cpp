@@ -1,6 +1,6 @@
 #include "own.h"
 
-int main() {
+int main(int argc, char **argv) {
     float* aux = new float[1000000000];
     for(int i=0; i < 1000000000; i++){
         aux[i] = 1;

@@ -9,7 +9,7 @@ class own {
 
 };
 
-#endif //KNNC_MAIN_H
+//#endif //KNNC_MAIN_H
 #pragma once
 
 #ifdef WIN32
@@ -48,3 +48,6 @@ POSTGRES_MATCHER_API int32_t Matcher_getTemplatesCount(void* instance);
 POSTGRES_MATCHER_API const char* Matcher_getVersion(void* instance);
 POSTGRES_MATCHER_API void Matcher_clear(void* instance);
 }
+
+
+#endif
