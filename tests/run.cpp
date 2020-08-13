@@ -79,7 +79,7 @@ public:
         write_result(res);
     }
 };
-
+// ~/nsg/build/tests/run $path/embeds.fvecs 128 $path/embeds.nsg 300 100
 int main(int argc, char **argv) {
 //    std::cout << argv[0] << " data_file query_dim nsg_path search_L search_K" << std::endl;
     char* filename = argv[1];
