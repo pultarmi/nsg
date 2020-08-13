@@ -36,7 +36,6 @@ void write_result( std::vector<unsigned> &results) {
 }
 
 int main(int argc, char **argv) {
-
     if (argc != 6) {
         std::cout << argv[0] << " data_file query_dim nsg_path search_L search_K" << std::endl;
         exit(-1);
