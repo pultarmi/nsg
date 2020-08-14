@@ -71,7 +71,7 @@ public:
         query_load = new float[(size_t) dim];
     }
 
-    void search(float* query_load){
+    std::vector<unsigned> search(float* query_load){
         efanna2e::Parameters paras;
         paras.Set<unsigned>("L_search", L);
         paras.Set<unsigned>("P_search", L);
@@ -79,7 +79,8 @@ public:
         std::vector<unsigned> res(K);
         load_query(query_load, query_dim);
         index->SearchWithOptGraph(query_load, K, paras, res.data());
-        write_result(res);
+//        write_result(res);
+        return res;
     }
 };
 // path='/home/mpultar/Data/mix_fc:plus_pca:pca-P5-36_splits:36_1-1--1_nsg'
@@ -93,11 +94,11 @@ int main(int argc, char **argv) {
     unsigned K = (unsigned) atoi(argv[5]);
     std::vector<Searcher> searchers;
     for(int i=0; i < 36; i++) {
-        fs::path p1 = filename / std::to_string(i);
+        fs::path p1 = filename / std::to_string(i) / "embeds.fvecs";
         std::cout << p1 << std::endl;
-        p1 /= "embeds.fvecs";
-        fs::path p2 = nsg_path / std::to_string(i);
-        p2 /= "embeds.nsg";
+//        p1 /= ;
+        fs::path p2 = nsg_path / std::to_string(i) / "embeds.nsg";
+//        p2 /= ;
         Searcher searcher(p1.string().c_str(), query_dim, p2.string().c_str(), L, K);
         searchers.push_back(searcher);
     }
