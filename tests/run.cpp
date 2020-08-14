@@ -86,19 +86,22 @@ public:
 // path='/home/mpultar/Data/mix_fc:plus_pca:pca-P5-36_splits:36_1-1--1_nsg'
 // ~/nsg/build/tests/run $path 128 $path 300 100
 int main(int argc, char **argv) {
-//    std::cout << argv[0] << " data_file query_dim nsg_path search_L search_K" << std::endl;
+    if (argc != 7) {
+        std::cout << argv[0] << " data_file query_dim nsg_path search_L search_K path_query" << std::endl;
+        exit(-1);
+    }
     fs::path filename = argv[1];
     auto query_dim = (unsigned) atoi(argv[2]);
     fs::path nsg_path = argv[3];
     unsigned L = (unsigned) atoi(argv[4]);
     unsigned K = (unsigned) atoi(argv[5]);
+
+    fs::path path_query = argv[6];
     std::vector<Searcher> searchers;
     for(int i=0; i < 36; i++) {
         fs::path p1 = filename / std::to_string(i) / "embeds.fvecs";
         std::cout << p1 << std::endl;
-//        p1 /= ;
         fs::path p2 = nsg_path / std::to_string(i) / "embeds.nsg";
-//        p2 /= ;
         Searcher searcher(p1.string().c_str(), query_dim, p2.string().c_str(), L, K);
         searchers.push_back(searcher);
     }
