@@ -53,7 +53,7 @@ public:
         unsigned points_num, dim;
         load_data(filename, data_load, points_num, dim);
 //        auto query_dim = (unsigned) atoi(argv[2]);
-        float *query_load = NULL;
+//        float *query_load = NULL;
 
 //        unsigned L = (unsigned) atoi(argv[4]);
 //        unsigned K = (unsigned) atoi(argv[5]);
@@ -71,18 +71,19 @@ public:
         assert(dim == query_dim);
         delete[] data_load;
 
-        query_load = new float[(size_t) dim];
+//        query_load = new float[(size_t) dim];
 
         paras.Set<unsigned>("L_search", L);
         paras.Set<unsigned>("P_search", L);
     }
 
-    std::vector<unsigned> search(float* query_load){
+    std::pair<std::vector<unsigned>, std::vector<float>> search(float* query_load){
         std::vector<unsigned> res(K);
+        std::vector<float> dists(K);
 //        load_query(query_load, query_dim);
-        index->SearchWithOptGraph(query_load, K, paras, res.data());
+        index->SearchWithOptGraph(query_load, K, paras, res.data(), dists.data());
 //        write_result(res);
-        return res;
+        return std::make_pair(res, dists);
     }
 };
 // path='/home/mpultar/Data/mix_fc:plus_pca:pca-P5-36_splits:36_1-1--1_nsg'
