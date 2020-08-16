@@ -97,12 +97,19 @@ int main(int argc, char **argv) {
     unsigned K = (unsigned) atoi(argv[5]);
 
     fs::path path_query = argv[6];
-    std::ifstream in(path_query, std::ios::binary);
-    in.seekg(0, std::ios::end);
-    int ss = in.tellg() / (4*query_dim+1);
+//    std::ifstream in(path_query, std::ios::binary);
+    float* queries = NULL;
+    unsigned points_num, dim;
+    load_data(path_query.string().c_str(), queries, points_num, dim);
+//    in.seekg(0, std::ios::end);
+//    int nquery = in.tellg() / (4*query_dim+1);
+//    std::vector<std::vector<float> > queries(nquery, std::vector<float>(query_dim));
+//    for(int i=0; i < nquery; i++){
+//        for(int j=0; j < query_dim; j++){
+//            queries[i][j] =
+//        }
+//    };
 
-    std::cout << ss << std::endl;
-//    std::vector<std::vector<float> > dynamicArray(ROWS, std::vector<float>(query_dim));
 
     return 0;
     std::vector<Searcher> searchers;
