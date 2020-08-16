@@ -99,10 +99,10 @@ int main(int argc, char **argv) {
     fs::path path_query = argv[6];
 //    std::ifstream in(path_query, std::ios::binary);
     float* queries = NULL;
-    unsigned points_num, dim;
-    load_data(path_query.string().c_str(), queries, points_num, dim);
-    std::cout << points_num << std::endl;
-    std::cout << dim << std::endl;
+    unsigned nquery, dim;
+    load_data(path_query.string().c_str(), queries, nquery, dim);
+//    std::cout << nquery << std::endl;
+//    std::cout << dim << std::endl;
 //    in.seekg(0, std::ios::end);
 //    int nquery = in.tellg() / (4*query_dim+1);
 //    std::vector<std::vector<float> > queries(nquery, std::vector<float>(query_dim));
@@ -113,7 +113,6 @@ int main(int argc, char **argv) {
 //    };
 
 
-    return 0;
     std::vector<Searcher> searchers;
     for(int i=0; i < 36; i++) {
         fs::path p1 = filename / std::to_string(i) / "embeds.fvecs";
@@ -121,6 +120,9 @@ int main(int argc, char **argv) {
         fs::path p2 = nsg_path / std::to_string(i) / "embeds.nsg";
         Searcher searcher(p1.string().c_str(), query_dim, p2.string().c_str(), L, K);
         searchers.push_back(searcher);
+    }
+    for(int i=0; i<nquery; i++){
+        searchers[0].search(queries + i*dim);
     }
     return 0;
 }
