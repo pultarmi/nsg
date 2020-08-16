@@ -45,6 +45,8 @@ public:
     unsigned query_dim;
     unsigned K,L;
     efanna2e::IndexNSG* index;
+    efanna2e::Parameters paras;
+
     Searcher(const char* filename, unsigned query_dim, const char *nsg_path, unsigned L, unsigned K){
         float *data_load = NULL;
         unsigned points_num, dim;
@@ -69,15 +71,14 @@ public:
         delete[] data_load;
 
         query_load = new float[(size_t) dim];
+
+        paras.Set<unsigned>("L_search", L);
+        paras.Set<unsigned>("P_search", L);
     }
 
     std::vector<unsigned> search(float* query_load){
-        efanna2e::Parameters paras;
-        paras.Set<unsigned>("L_search", L);
-        paras.Set<unsigned>("P_search", L);
-
         std::vector<unsigned> res(K);
-        load_query(query_load, query_dim);
+//        load_query(query_load, query_dim);
         index->SearchWithOptGraph(query_load, K, paras, res.data());
 //        write_result(res);
         return res;
