@@ -3,6 +3,7 @@
 #include <efanna2e/util.h>
 #include <iostream>
 #include <experimental/filesystem>
+#include <future>
 
 namespace fs = std::experimental::filesystem;
 
@@ -125,6 +126,7 @@ int main(int argc, char **argv) {
     for(int i=0; i<nquery; i++){
         std::cout << i <<std::endl;
         searchers[0].search(queries + i*dim);
+        auto a1 = std::async(&Searcher::search, &searchers[i], queries + i*dim);
     }
     return 0;
 }
