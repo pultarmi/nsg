@@ -97,7 +97,11 @@ int main(int argc, char **argv) {
     unsigned K = (unsigned) atoi(argv[5]);
 
     fs::path path_query = argv[6];
-    vector<int> query(query_dim);
+    std::ifstream in(path_query, std::ios::binary);
+    in.seekg(0, std::ios::end);
+    std::ios::pos_type ss = in.tellg();
+    std::cout << ss << std::endl;
+//    std::vector<std::vector<float> > dynamicArray(ROWS, std::vector<float>(query_dim));
 
     return 0;
     std::vector<Searcher> searchers;
