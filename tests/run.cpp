@@ -101,6 +101,8 @@ int main(int argc, char **argv) {
     float* queries = NULL;
     unsigned points_num, dim;
     load_data(path_query.string().c_str(), queries, points_num, dim);
+    std::cout << points_num << std::endl;
+    std::cout << dim << std::endl;
 //    in.seekg(0, std::ios::end);
 //    int nquery = in.tellg() / (4*query_dim+1);
 //    std::vector<std::vector<float> > queries(nquery, std::vector<float>(query_dim));
