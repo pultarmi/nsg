@@ -97,6 +97,9 @@ int main(int argc, char **argv) {
     unsigned K = (unsigned) atoi(argv[5]);
 
     fs::path path_query = argv[6];
+    vector<int> query(query_dim);
+
+    return 0;
     std::vector<Searcher> searchers;
     for(int i=0; i < 36; i++) {
         fs::path p1 = filename / std::to_string(i) / "embeds.fvecs";
