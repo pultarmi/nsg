@@ -132,8 +132,9 @@ int main(int argc, char **argv) {
     for(int i=0; i<searchers.size(); i++){
         futures[i].wait();
     }
+    std::vector<unsigned> aux = futures[0].get();
     for(int i=0; i<10; i++){
-        std::cout << futures[0].get()[i] << std::endl;
+        std::cout << aux[i] << std::endl;
     }
     return 0;
 }
