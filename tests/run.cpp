@@ -123,10 +123,14 @@ int main(int argc, char **argv) {
         Searcher searcher(p1.string().c_str(), query_dim, p2.string().c_str(), L, K);
         searchers.push_back(searcher);
     }
-    for(int i=0; i<nquery; i++){
+    std::vector<std::future<std::vector<unsigned>>> futures(searchers.size());
+    for(int i=0; i<searchers.size(); i++){
         std::cout << i <<std::endl;
         searchers[0].search(queries + i*dim);
-        auto a1 = std::async(&Searcher::search, &searchers[i], queries + i*dim);
+        futures[i] = std::async(&Searcher::search, &searchers[i], queries + i*dim);
+    }
+    for(int i=0; i<searchers.size(); i++){
+        futures[i].wait();
     }
     return 0;
 }
