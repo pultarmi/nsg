@@ -124,7 +124,7 @@ int main(int argc, char **argv) {
         Searcher searcher(p1.string().c_str(), query_dim, p2.string().c_str(), L, K);
         searchers.push_back(searcher);
     }
-    std::vector<std::future<std::vector<unsigned>>> futures(searchers.size());
+    std::vector<std::future<std::pair<std::vector<unsigned>,std::vector<float>>>> futures(searchers.size());
     for(int i=0; i<searchers.size(); i++){
         std::cout << i <<std::endl;
         searchers[0].search(queries + i*dim);
@@ -133,9 +133,9 @@ int main(int argc, char **argv) {
     for(int i=0; i<searchers.size(); i++){
         futures[i].wait();
     }
-    std::vector<unsigned> aux = futures[0].get();
+    auto aux = futures[0].get();
     for(int i=0; i<10; i++){
-        std::cout << aux[i] << std::endl;
+        std::cout << aux.first[i] << std::endl;
     }
     return 0;
 }
