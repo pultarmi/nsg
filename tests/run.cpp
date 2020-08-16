@@ -136,6 +136,7 @@ int main(int argc, char **argv) {
     auto aux = futures[0].get();
     for(int i=0; i<10; i++){
         std::cout << aux.first[i] << std::endl;
+        std::cout << aux.second[i] << std::endl;
     }
     return 0;
 }
