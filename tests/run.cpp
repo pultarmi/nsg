@@ -122,6 +122,7 @@ int main(int argc, char **argv) {
         searchers.push_back(searcher);
     }
     for(int i=0; i<nquery; i++){
+        std::cout << i <<std::endl;
         searchers[0].search(queries + i*dim);
     }
     return 0;
