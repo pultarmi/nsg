@@ -84,7 +84,7 @@ public:
     }
 };
 // path='/home/mpultar/Data/mix_fc:plus_pca:pca-P5-36_splits:36_1-1--1_nsg'
-// ~/nsg/build/tests/run $path 128 $path 300 100
+// ~/nsg/build/tests/run $path 128 $path 300 100 /home/mpultar/Data/query.fvecs
 int main(int argc, char **argv) {
     if (argc != 7) {
         std::cout << argv[0] << " data_file query_dim nsg_path search_L search_K path_query" << std::endl;
@@ -99,7 +99,8 @@ int main(int argc, char **argv) {
     fs::path path_query = argv[6];
     std::ifstream in(path_query, std::ios::binary);
     in.seekg(0, std::ios::end);
-    std::ios::pos_type ss = in.tellg();
+    int ss = in.tellg() / (4*query_dim+1);
+
     std::cout << ss << std::endl;
 //    std::vector<std::vector<float> > dynamicArray(ROWS, std::vector<float>(query_dim));
 
