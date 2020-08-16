@@ -132,5 +132,8 @@ int main(int argc, char **argv) {
     for(int i=0; i<searchers.size(); i++){
         futures[i].wait();
     }
+    for(int i=0; i<10; i++){
+        std::cout << futures[0].get()[i] << std::endl;
+    }
     return 0;
 }
