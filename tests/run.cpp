@@ -200,6 +200,7 @@ int main(int argc, char **argv) {
         indices[i] = ids[indices_[asort[i]]];
         std::cout << indices[i] << std::endl;
         dists[i] = dists_[asort[i]];
+        indices[i] = dists[asort[i]];
     }
 
 //    for(unsigned i=0; i<10; i++){
