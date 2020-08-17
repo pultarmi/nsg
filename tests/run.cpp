@@ -154,7 +154,7 @@ int main(int argc, char **argv) {
 //    };
 
     std::vector<Searcher> searchers;
-    for(int i=0; i < 4; i++) {
+    for(int i=0; i < 36; i++) {
         fs::path p1 = filename / std::to_string(i) / "embeds.fvecs";
         std::cout << p1 << std::endl;
         fs::path p2 = nsg_path / std::to_string(i) / "embeds.nsg";
