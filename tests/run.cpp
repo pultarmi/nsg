@@ -144,10 +144,8 @@ int main(int argc, char **argv) {
         auto aux = futures[i].get();
         for(unsigned j=0; j<aux.first.size(); j++)
             aux.first[j] += offset;
-        std::cout << offset << std::endl;
         indices.insert(indices.end(), aux.first.begin(), aux.first.end());
-        std::cout << aux.first[0] << std::endl;
-        std::cout << aux.second[0] << std::endl;
+        dists.insert(dists.end(), aux.second.begin(), aux.second.end());
         offset += searchers[i].points_num;
     }
     return 0;
