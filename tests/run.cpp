@@ -163,7 +163,7 @@ int main(int argc, char **argv) {
     }
     std::vector<std::future<std::pair<std::vector<unsigned>,std::vector<float>>>> futures(searchers.size());
     for(int i=0; i<searchers.size(); i++){
-        std::cout << i <<std::endl;
+//        std::cout << i <<std::endl;
         searchers[0].search(queries + i*dim);
         futures[i] = std::async(&Searcher::search, &searchers[i], queries + i*dim);
     }
@@ -188,12 +188,12 @@ int main(int argc, char **argv) {
     std::vector<unsigned> indices(searchers.size() * K);
     std::vector<unsigned> dists(searchers.size() * K);
     for(unsigned i=0; i<indices.size(); i++){
+        std::cout << indices_[i] << std::endl;
         indices[i] = ids[indices_[i]];
         dists[i] = ids[dists_[i]];
     }
 
     for(unsigned i=0; i<10; i++){
-        std::cout << indices[i] << std::endl;
     }
     return 0;
 }
