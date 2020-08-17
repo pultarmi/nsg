@@ -180,11 +180,11 @@ int main(int argc, char **argv) {
         auto aux = futures[i].get();
         for(unsigned j=0; j<aux.first.size(); j++) {
             aux.first[j] += offset;
-            std::cout << aux.second[j] << std::endl;
         }
 //        std::cout << aux.first[0] << std::endl;
         indices_.insert(indices_.end(), aux.first.begin(), aux.first.end());
         dists_.insert(dists_.end(), aux.second.begin(), aux.second.end());
+        std::cout << dists_[1] << std::endl;
 //        std::cout << aux.first[0] << std::endl;
 //        std::cout << indices_[0] << std::endl;
         offset += searchers[i].points_num;
