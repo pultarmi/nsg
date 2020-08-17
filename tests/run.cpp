@@ -200,6 +200,7 @@ int main(int argc, char **argv) {
 
     std::vector<unsigned> indices(K);
     std::vector<float> dists(K);
+    return 0;
     for(unsigned i=0; i<indices.size(); i++){
         indices[i] = ids[indices_[asort[i]]];
         std::cout << i << std::endl;
