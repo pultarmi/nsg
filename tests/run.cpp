@@ -115,7 +115,6 @@ int main(int argc, char **argv) {
 //        }
 //    };
 
-
     std::vector<Searcher> searchers;
     for(int i=0; i < 36; i++) {
         fs::path p1 = filename / std::to_string(i) / "embeds.fvecs";
@@ -133,10 +132,14 @@ int main(int argc, char **argv) {
     for(int i=0; i<searchers.size(); i++){
         futures[i].wait();
     }
-    auto aux = futures[0].get();
-    for(int i=0; i<10; i++){
-        std::cout << aux.first[i] << std::endl;
-        std::cout << aux.second[i] << std::endl;
+
+    std::vector<unsigned> indices(searchers.size()*K);
+    std::vector<unsigned> dists(searchers.size()*K);
+    for(int i=0; i<searchers.size(); i++){
+//        std::cout << aux.first[i] << std::endl;
+//        std::cout << aux.second[i] << std::endl;
+        auto aux = futures[i].get();
+        indices.insert(indices.end(), aux.first.begin(), aux.first.end());
     }
     return 0;
 }
