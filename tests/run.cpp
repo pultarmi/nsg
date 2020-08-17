@@ -191,5 +191,9 @@ int main(int argc, char **argv) {
         indices[i] = ids[indices_[i]];
         dists[i] = ids[dists_[i]];
     }
+
+    for(unsigned i=0; i<10; i++){
+        std::cout << indices[i] << std::endl;
+    }
     return 0;
 }
