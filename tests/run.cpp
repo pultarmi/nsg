@@ -184,12 +184,14 @@ int main(int argc, char **argv) {
 //        std::cout << aux.first[0] << std::endl;
         indices_.insert(indices_.end(), aux.first.begin(), aux.first.end());
         dists_.insert(dists_.end(), aux.second.begin(), aux.second.end());
-        std::cout << dists_[1] << std::endl;
 //        std::cout << aux.first[0] << std::endl;
 //        std::cout << indices_[0] << std::endl;
         offset += searchers[i].points_num;
     }
 
+    for(int i=0; i<50; i++){
+        std::cout << dists_[i] << std::endl;
+    }
     auto asort = argsort(dists_.begin(), dists_.end(), std::less<float>());
 
     std::vector<unsigned> indices(K);
