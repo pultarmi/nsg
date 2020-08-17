@@ -189,16 +189,16 @@ int main(int argc, char **argv) {
         offset += searchers[i].points_num;
     }
 
-    for(int i=0; i<50; i++){
-        std::cout << dists_.size() << std::endl;
-    }
+//    for(int i=0; i<50; i++){
+//        std::cout << dists_.size() << std::endl;
+//    }
     auto asort = argsort(dists_.begin(), dists_.end(), std::less<float>());
 
     std::vector<unsigned> indices(K);
     std::vector<float> dists(K);
     for(unsigned i=0; i<indices.size(); i++){
         indices[i] = ids[indices_[asort[i]]];
-//        std::cout << indices[i] << std::endl;
+        std::cout << indices[i] << std::endl;
         dists[i] = dists_[asort[i]];
     }
 
