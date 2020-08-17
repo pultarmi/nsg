@@ -87,7 +87,7 @@ public:
     }
 };
 // path='/home/mpultar/Data/mix_fc:plus_pca:pca-P5-36_splits:36_1-1--1_nsg'
-// ~/nsg/build/tests/run $path 128 $path 300 100 /home/mpultar/Data/query.fvecs
+// ~/nsg/build/tests/run $path 128 $path 300 100 /home/mpultar/Data/ids.ivecs /home/mpultar/Data/query.fvecs
 int main(int argc, char **argv) {
     if (argc != 8) {
         std::cout << argv[0] << " data_file query_dim nsg_path search_L search_K path_ids path_query" << std::endl;
@@ -119,7 +119,7 @@ int main(int argc, char **argv) {
 //    };
 
     std::vector<Searcher> searchers;
-    for(int i=0; i < 36; i++) {
+    for(int i=0; i < 3; i++) {
         fs::path p1 = filename / std::to_string(i) / "embeds.fvecs";
         std::cout << p1 << std::endl;
         fs::path p2 = nsg_path / std::to_string(i) / "embeds.nsg";
