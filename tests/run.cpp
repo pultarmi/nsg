@@ -188,7 +188,7 @@ int main(int argc, char **argv) {
         offset += searchers[i].points_num;
     }
 
-    auto asort = argsort(dists_.begin(), dists_.end(), std::less<int>());
+    auto asort = argsort(dists_.begin(), dists_.end(), std::less<float>());
 
     std::vector<unsigned> indices(K);
     std::vector<float> dists(K);
