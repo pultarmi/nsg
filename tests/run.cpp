@@ -171,8 +171,10 @@ int main(int argc, char **argv) {
         futures[i].wait();
     }
 
-    std::vector<unsigned> indices_(searchers.size() * K);
-    std::vector<unsigned> dists_(searchers.size() * K);
+//    std::vector<unsigned> indices_(searchers.size() * K);
+//    std::vector<unsigned> dists_(searchers.size() * K);
+    std::vector<unsigned> indices_;
+    std::vector<unsigned> dists_;
     unsigned offset=0;
     for(int i=0; i<searchers.size(); i++){
         auto aux = futures[i].get();
