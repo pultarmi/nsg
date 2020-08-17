@@ -201,7 +201,7 @@ int main(int argc, char **argv) {
         std::cout << i << std::endl;
         std::cout << indices[i] << std::endl;
         dists[i] = dists_[asort[i]];
-        std::cout << dists[i] << std::endl;
+//        std::cout << dists[i] << std::endl;
     }
 
 //    for(unsigned i=0; i<10; i++){
