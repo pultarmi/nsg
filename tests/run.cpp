@@ -141,12 +141,12 @@ int main(int argc, char **argv) {
     std::vector<unsigned> dists(searchers.size()*K);
     unsigned offset=0;
     for(int i=0; i<searchers.size(); i++){
-//        std::cout << aux.first[i] << std::endl;
-//        std::cout << aux.second[i] << std::endl;
         auto aux = futures[i].get();
         for(int j=0; j<aux.first.size(); j++)
             aux.first[j] += offset;
         indices.insert(indices.end(), aux.first.begin(), aux.first.end());
+        std::cout << aux.first[i] << std::endl;
+        std::cout << aux.second[i] << std::endl;
         offset += aux.first.size();
     }
     return 0;
