@@ -142,8 +142,8 @@ int main(int argc, char **argv) {
     unsigned offset=0;
     for(int i=0; i<searchers.size(); i++){
         auto aux = futures[i].get();
-        for(int j=0; j<aux.first.size(); j++)
-            aux.first[j] += offset;
+        for(auto && mem : aux.first)
+            mem += offset;
         indices.insert(indices.end(), aux.first.begin(), aux.first.end());
         std::cout << aux.first[0] << std::endl;
         std::cout << aux.second[0] << std::endl;
