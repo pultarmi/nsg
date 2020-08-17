@@ -147,7 +147,7 @@ int main(int argc, char **argv) {
         for(int j=0; j<aux.first.size(); j++)
             aux.first[j] += offset;
         indices.insert(indices.end(), aux.first.begin(), aux.first.end());
-        offset += sux.first.size();
+        offset += aux.first.size();
     }
     return 0;
 }
