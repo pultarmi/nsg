@@ -190,7 +190,7 @@ int main(int argc, char **argv) {
     }
 
     for(int i=0; i<50; i++){
-        std::cout << dists_[i] << std::endl;
+        std::cout << dists_.size() << std::endl;
     }
     auto asort = argsort(dists_.begin(), dists_.end(), std::less<float>());
 
