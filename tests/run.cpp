@@ -182,8 +182,8 @@ int main(int argc, char **argv) {
             aux.first[j] += offset;
         indices_.insert(indices_.end(), aux.first.begin(), aux.first.end());
         dists_.insert(dists_.end(), aux.second.begin(), aux.second.end());
-        std::cout << aux.first[0] << std::endl;
-        std::cout << indices_[0] << std::endl;
+//        std::cout << aux.first[0] << std::endl;
+//        std::cout << indices_[0] << std::endl;
         offset += searchers[i].points_num;
     }
 
@@ -192,7 +192,7 @@ int main(int argc, char **argv) {
     std::vector<unsigned> indices(searchers.size() * K);
     std::vector<unsigned> dists(searchers.size() * K);
     for(unsigned i=0; i<indices.size(); i++){
-//        std::cout << indices_[i] << std::endl;
+        std::cout << indices_[i] << std::endl;
         indices[i] = ids[indices_[i]];
         dists[i] = ids[dists_[i]];
     }
