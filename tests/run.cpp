@@ -89,8 +89,8 @@ public:
 // path='/home/mpultar/Data/mix_fc:plus_pca:pca-P5-36_splits:36_1-1--1_nsg'
 // ~/nsg/build/tests/run $path 128 $path 300 100 /home/mpultar/Data/query.fvecs
 int main(int argc, char **argv) {
-    if (argc != 7) {
-        std::cout << argv[0] << " data_file query_dim nsg_path search_L search_K path_query" << std::endl;
+    if (argc != 8) {
+        std::cout << argv[0] << " data_file query_dim nsg_path search_L search_K path_ids path_query" << std::endl;
         exit(-1);
     }
     fs::path filename = argv[1];
@@ -99,11 +99,14 @@ int main(int argc, char **argv) {
     unsigned L = (unsigned) atoi(argv[4]);
     unsigned K = (unsigned) atoi(argv[5]);
 
-    fs::path path_query = argv[6];
+    fs::path path_ids = argv[6];
+    fs::path path_query = argv[7];
 //    std::ifstream in(path_query, std::ios::binary);
     float* queries = NULL;
+    float* ids = NULL;
     unsigned nquery, dim;
     load_data(path_query.string().c_str(), queries, nquery, dim);
+    load_data(path_ids.string().c_str(), ids, nquery, dim);
 //    std::cout << nquery << std::endl;
 //    std::cout << dim << std::endl;
 //    in.seekg(0, std::ios::end);
