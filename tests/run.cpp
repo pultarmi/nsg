@@ -46,12 +46,12 @@ class Searcher{
 public:
     unsigned query_dim;
     unsigned K,L;
+    unsigned points_num, dim;
     efanna2e::IndexNSG* index;
     efanna2e::Parameters paras;
 
     Searcher(const char* filename, unsigned query_dim, const char *nsg_path, unsigned L, unsigned K){
         float *data_load = NULL;
-        unsigned points_num, dim;
         load_data(filename, data_load, points_num, dim);
 //        auto query_dim = (unsigned) atoi(argv[2]);
 //        float *query_load = NULL;
@@ -142,13 +142,13 @@ int main(int argc, char **argv) {
     unsigned offset=0;
     for(int i=0; i<searchers.size(); i++){
         auto aux = futures[i].get();
-        for(auto && mem : aux.first)
-            mem += offset;
+        for(unsigned j=0; j<aux.first.size(); j++)
+            aux.first[j] += offset;
         std::cout << offset << std::endl;
         indices.insert(indices.end(), aux.first.begin(), aux.first.end());
         std::cout << aux.first[0] << std::endl;
         std::cout << aux.second[0] << std::endl;
-        offset += aux.first.size();
+        offset += searchers[i].points_num;
     }
     return 0;
 }
