@@ -171,18 +171,25 @@ int main(int argc, char **argv) {
         futures[i].wait();
     }
 
-    std::vector<unsigned> indices(searchers.size()*K);
-    std::vector<unsigned> dists(searchers.size()*K);
+    std::vector<unsigned> indices_(searchers.size() * K);
+    std::vector<unsigned> dists_(searchers.size() * K);
     unsigned offset=0;
     for(int i=0; i<searchers.size(); i++){
         auto aux = futures[i].get();
         for(unsigned j=0; j<aux.first.size(); j++)
             aux.first[j] += offset;
-        indices.insert(indices.end(), aux.first.begin(), aux.first.end());
-        dists.insert(dists.end(), aux.second.begin(), aux.second.end());
+        indices_.insert(indices_.end(), aux.first.begin(), aux.first.end());
+        dists_.insert(dists_.end(), aux.second.begin(), aux.second.end());
         offset += searchers[i].points_num;
     }
 
-    auto res = argsort(dists.begin(), dists.end(), std::less<int>());
+    auto res = argsort(dists_.begin(), dists_.end(), std::less<int>());
+
+    std::vector<unsigned> indices(searchers.size() * K);
+    std::vector<unsigned> dists(searchers.size() * K);
+    for(unsigned i=0; i<indices.size(); i++){
+        indices[i] = ids[indices_[i]];
+        dists[i] = ids[dists_[i]];
+    }
     return 0;
 }
