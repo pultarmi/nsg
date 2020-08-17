@@ -144,6 +144,7 @@ int main(int argc, char **argv) {
         auto aux = futures[i].get();
         for(auto && mem : aux.first)
             mem += offset;
+        std::cout << offset << std::endl;
         indices.insert(indices.end(), aux.first.begin(), aux.first.end());
         std::cout << aux.first[0] << std::endl;
         std::cout << aux.second[0] << std::endl;
