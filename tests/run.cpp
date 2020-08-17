@@ -162,10 +162,10 @@ int main(int argc, char **argv) {
         searchers.push_back(searcher);
     }
     std::vector<std::future<std::pair<std::vector<unsigned>,std::vector<float>>>> futures(searchers.size());
-    for(int i=0; i<128; i++){
-        std::cout << queries[i] << std::endl;
-    }
-    return 0;
+//    for(int i=0; i<128; i++){
+//        std::cout << queries[i] << std::endl;
+//    }
+//    return 0;
     for(int i=0; i<searchers.size(); i++){
 //        std::cout << i <<std::endl;
 //        searchers[0].search(queries);
@@ -185,7 +185,7 @@ int main(int argc, char **argv) {
         for(unsigned j=0; j<aux.first.size(); j++) {
             aux.first[j] += offset;
         }
-//        std::cout << aux.first[0] << std::endl;
+        std::cout << aux.first[0] << std::endl;
         indices_.insert(indices_.end(), aux.first.begin(), aux.first.end());
         dists_.insert(dists_.end(), aux.second.begin(), aux.second.end());
 //        std::cout << aux.first[0] << std::endl;
