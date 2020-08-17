@@ -194,7 +194,8 @@ int main(int argc, char **argv) {
     std::vector<float> dists(K);
     for(unsigned i=0; i<indices.size(); i++){
         indices[i] = ids[indices_[asort[i]]];
-        std::cout << indices[i] << std::endl;
+//        std::cout << indices[i] << std::endl;
+        std::cout << asort[i]] << std::endl;
         dists[i] = dists_[asort[i]];
     }
 
