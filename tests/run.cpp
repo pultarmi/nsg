@@ -178,8 +178,10 @@ int main(int argc, char **argv) {
     unsigned offset=0;
     for(int i=0; i<searchers.size(); i++){
         auto aux = futures[i].get();
-        for(unsigned j=0; j<aux.first.size(); j++)
+        for(unsigned j=0; j<aux.first.size(); j++) {
             aux.first[j] += offset;
+            std::cout << aux.second[j] << std::endl;
+        }
 //        std::cout << aux.first[0] << std::endl;
         indices_.insert(indices_.end(), aux.first.begin(), aux.first.end());
         dists_.insert(dists_.end(), aux.second.begin(), aux.second.end());
@@ -195,7 +197,6 @@ int main(int argc, char **argv) {
     for(unsigned i=0; i<indices.size(); i++){
         indices[i] = ids[indices_[asort[i]]];
 //        std::cout << indices[i] << std::endl;
-        std::cout << dists[i] << std::endl;
         dists[i] = dists_[asort[i]];
     }
 
