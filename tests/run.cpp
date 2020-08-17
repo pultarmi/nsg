@@ -145,8 +145,8 @@ int main(int argc, char **argv) {
         for(int j=0; j<aux.first.size(); j++)
             aux.first[j] += offset;
         indices.insert(indices.end(), aux.first.begin(), aux.first.end());
-        std::cout << aux.first[i] << std::endl;
-        std::cout << aux.second[i] << std::endl;
+        std::cout << aux.first[0] << std::endl;
+        std::cout << aux.second[0] << std::endl;
         offset += aux.first.size();
     }
     return 0;
