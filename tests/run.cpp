@@ -8,7 +8,8 @@
 namespace fs = std::experimental::filesystem;
 
 
-void load_data(const char* filename, float*& data, unsigned& num, unsigned& dim) {  // load data with sift10K pattern
+template<typename T>
+void load_data(const char* filename, T*& data, unsigned& num, unsigned& dim) {  // load data with sift10K pattern
     std::ifstream in(filename, std::ios::binary);
     if (!in.is_open()) {
         std::cout << "open file error" << std::endl;
@@ -20,7 +21,7 @@ void load_data(const char* filename, float*& data, unsigned& num, unsigned& dim)
     std::ios::pos_type ss = in.tellg();
     size_t fsize = (size_t)ss;
     num = (unsigned)(fsize / (dim + 1) / 4);
-    data = new float[(size_t)num * (size_t)dim];
+    data = new T[(size_t)num * (size_t)dim];
 
     in.seekg(0, std::ios::beg);
     for (size_t i = 0; i < num; i++) {
@@ -103,7 +104,7 @@ int main(int argc, char **argv) {
     fs::path path_query = argv[7];
 //    std::ifstream in(path_query, std::ios::binary);
     float* queries = NULL;
-    float* ids = NULL;
+    unsigned* ids = NULL;
     unsigned nquery, dim;
     load_data(path_query.string().c_str(), queries, nquery, dim);
     load_data(path_ids.string().c_str(), ids, nquery, dim);
