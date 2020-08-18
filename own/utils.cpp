@@ -1,12 +1,4 @@
 #include "utils.h"
-#include <efanna2e/index_nsg.h>
-#include <efanna2e/util.h>
-#include <iostream>
-#include <experimental/filesystem>
-#include <future>
-#include <faiss/IndexIVFPQ.h>
-#include <faiss/index_io.h>
-#include <faiss/VectorTransform.h>
 
 
 template<typename T>
