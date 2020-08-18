@@ -5,8 +5,8 @@
 #include <experimental/filesystem>
 #include <future>
 #include <faiss/IndexIVFPQ.h>
-#include <faiss/index_io.h.h>
-#include <faiss/VectorTransform.h.h.h>
+#include <faiss/index_io.h>
+#include <faiss/VectorTransform.h>
 
 namespace fs = std::experimental::filesystem;
 
