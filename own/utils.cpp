@@ -1,4 +1,4 @@
-#include "run.h"
+#include "utils.h"
 #include <efanna2e/index_nsg.h>
 #include <efanna2e/util.h>
 #include <iostream>
@@ -8,7 +8,6 @@
 #include <faiss/index_io.h>
 #include <faiss/VectorTransform.h>
 
-#include "utils.h"
 
 template<typename T>
 unsigned load_data(const char* filename, T*& data, unsigned query_dim) {  // load data with sift10K pattern
