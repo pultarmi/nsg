@@ -9,7 +9,7 @@
 
 
 void dummy(int a){
-    return 1;
+    return;
 }
 
 template<typename T>
