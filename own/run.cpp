@@ -34,7 +34,7 @@ public:
         index->Load(nsg_path);
         index->OptimizeGraph(data_load);
 //        this->query_dim = query_dim;
-        assert(dim == query_dim);
+//        assert(dim == query_dim);
         delete[] data_load;
 
         paras.Set<unsigned>("L_search", L);

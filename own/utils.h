@@ -24,4 +24,4 @@ unsigned load_data(const char* filename, T*& data, unsigned query_dim);
 template <typename Iter, typename Compare>
 std::vector<int> argsort(Iter begin, Iter end, Compare comp);
 
-#endif //EFANNA2E_UTILS_H
+#endif EFANNA2E_UTILS_H
