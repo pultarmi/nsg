@@ -5,6 +5,16 @@
 #ifndef EFANNA2E_RUN_H
 #define EFANNA2E_RUN_H
 
+#include "utils.h"
+#include <efanna2e/index_nsg.h>
+#include <efanna2e/util.h>
+#include <iostream>
+#include <experimental/filesystem>
+#include <future>
+#include <faiss/IndexIVFPQ.h>
+#include <faiss/index_io.h>
+#include <faiss/VectorTransform.h>
+
 class run {
 };
 
