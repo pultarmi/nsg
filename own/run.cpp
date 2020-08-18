@@ -84,16 +84,16 @@ public:
         num_vecs = load_data(filename, data_load, query_dim);
 
         this->K = K;
-        this->L = L;
+//        this->L = L;
         if (L < K) {
             std::cout << "search_L cannot be smaller than search_K!" << std::endl;
             exit(-1);
         }
 
-        this->index = new efanna2e::IndexNSG(dim, num_vecs, efanna2e::FAST_L2, nullptr);
+        this->index = new efanna2e::IndexNSG(query_dim, num_vecs, efanna2e::FAST_L2, nullptr);
         index->Load(nsg_path);
         index->OptimizeGraph(data_load);
-        this->query_dim = query_dim;
+//        this->query_dim = query_dim;
         assert(dim == query_dim);
         delete[] data_load;
 
@@ -104,7 +104,6 @@ public:
     std::pair<std::vector<unsigned>, std::vector<float>> search(float* query_load){
         std::vector<unsigned> res(K);
         std::vector<float> dists(K);
-//        load_query(query_load, query_dim);
         index->SearchWithOptGraph(query_load, K, paras, res.data(), dists.data());
 //        write_result(res);
         return std::make_pair(res, dists);
