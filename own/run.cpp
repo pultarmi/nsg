@@ -24,7 +24,7 @@ unsigned load_data(const char* filename, T*& data, unsigned query_dim) {  // loa
     in.seekg(0, std::ios::end);
     std::ios::pos_type ss = in.tellg();
     size_t fsize = (size_t)ss;
-    num_vecs = (unsigned)(fsize / (dim + 1) / 4);
+    auto num_vecs = (unsigned)(fsize / (dim + 1) / 4);
     data = new T[(size_t)num_vecs * (size_t)dim];
 
     in.seekg(0, std::ios::beg);
