@@ -12,7 +12,6 @@
 namespace fs = std::experimental::filesystem;
 
 
-
 class Searcher{
 public:
     unsigned K;
