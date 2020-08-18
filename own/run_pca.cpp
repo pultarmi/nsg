@@ -84,7 +84,7 @@ std::vector<int> argsort(Iter begin, Iter end, Compare comp)
 }
 
 // path='/home/mpultar/Data/mix_fc:plus_pca:pca-P5-36_splits:36_1-1--1_nsg'
-// ~/nsg/build/tests/run_pca /home/mpultar/Data/pca-P5-36
+// ~/nsg/build/own/run_pca /home/mpultar/Data/pca-P5-36
 int main(int argc, char **argv) {
     if (argc != 2) {
         std::cout << argv[0] << " path_pca" << std::endl;
