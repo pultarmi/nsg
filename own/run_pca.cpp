@@ -2,7 +2,7 @@
 // Created by milan on 18/08/2020.
 //
 
-#include "run2.h"
+#include "run_pca.h"
 #include <efanna2e/index_nsg.h>
 #include <efanna2e/util.h>
 #include <iostream>
@@ -83,53 +83,8 @@ std::vector<int> argsort(Iter begin, Iter end, Compare comp)
     return ret;
 }
 
-class Searcher{
-public:
-    unsigned query_dim;
-    unsigned K,L;
-    unsigned points_num, dim;
-    efanna2e::IndexNSG* index;
-    efanna2e::Parameters paras;
-
-    Searcher(const char* filename, unsigned query_dim, const char *nsg_path, unsigned L, unsigned K){
-        float *data_load = NULL;
-        load_data(filename, data_load, points_num, dim);
-//        auto query_dim = (unsigned) atoi(argv[2]);
-//        float *query_load = NULL;
-
-//        unsigned L = (unsigned) atoi(argv[4]);
-//        unsigned K = (unsigned) atoi(argv[5]);
-        this->K = K;
-        this->L = L;
-        if (L < K) {
-            std::cout << "search_L cannot be smaller than search_K!" << std::endl;
-            exit(-1);
-        }
-
-        this->index = new efanna2e::IndexNSG(dim, points_num, efanna2e::FAST_L2, nullptr);
-        index->Load(nsg_path);
-        index->OptimizeGraph(data_load);
-        this->query_dim = query_dim;
-        assert(dim == query_dim);
-        delete[] data_load;
-
-//        query_load = new float[(size_t) dim];
-
-        paras.Set<unsigned>("L_search", L);
-        paras.Set<unsigned>("P_search", L);
-    }
-
-    std::pair<std::vector<unsigned>, std::vector<float>> search(float* query_load){
-        std::vector<unsigned> res(K);
-        std::vector<float> dists(K);
-//        load_query(query_load, query_dim);
-        index->SearchWithOptGraph(query_load, K, paras, res.data(), dists.data());
-//        write_result(res);
-        return std::make_pair(res, dists);
-    }
-};
 // path='/home/mpultar/Data/mix_fc:plus_pca:pca-P5-36_splits:36_1-1--1_nsg'
-// ~/nsg/build/tests/run $path 128 $path 300 100 /home/mpultar/Data/ids.ivecs /home/mpultar/Data/query.fvecs
+// ~/nsg/build/tests/run_pca /home/mpultar/Data/pca-P5-36
 int main(int argc, char **argv) {
     if (argc != 2) {
         std::cout << argv[0] << " path_pca" << std::endl;
