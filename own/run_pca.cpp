@@ -27,6 +27,11 @@ int main(int argc, char **argv) {
     unsigned idim = (unsigned) atoi(argv[2]);
     unsigned odim = (unsigned) atoi(argv[3]);
     faiss::VectorTransform* pca = faiss::read_VectorTransform(path_pca.string().c_str());
-    float* aux = NULL;
-    load_data(path_pca.string().c_str(), aux, idim);
+//    float* aux = NULL;
+//    faiss::idx_t n;
+    auto path_data = "/home/mpultar/Providers/P2/embeds0.fvecs";
+    float* data = NULL;
+    load_data(path_data, data, idim);
+    float* aux = pca->apply(128, data);
+//    load_data(path_pca.string().c_str(), aux, idim);
 }
