@@ -4,6 +4,7 @@
 #include <iostream>
 #include <experimental/filesystem>
 #include <future>
+#include <faiss/IndexIVFPQ.h>
 
 namespace fs = std::experimental::filesystem;
 
