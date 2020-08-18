@@ -1,4 +1,5 @@
 #include "run.h"
+#include "utils.h"
 #include <efanna2e/index_nsg.h>
 #include <efanna2e/util.h>
 #include <iostream>
