@@ -8,9 +8,9 @@
 #include <faiss/VectorTransform.h>
 
 
-void dummy(int a){
-    return;
-}
+//void dummy(int a){
+//    return;
+//}
 
 template<typename T>
 unsigned load_data(const char* filename, T*& data, unsigned query_dim) {  // load data with sift10K pattern
