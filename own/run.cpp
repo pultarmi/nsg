@@ -33,6 +33,7 @@ unsigned load_data(const char* filename, T*& data, unsigned query_dim) {  // loa
         in.read((char*)(data + i * dim), dim * 4);
     }
     in.close();
+    reutrn num_vecs;
 }
 
 void load_query(float *&data, unsigned dim) {  // load data with sift10K pattern
