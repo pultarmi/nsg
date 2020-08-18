@@ -12,22 +12,23 @@ namespace fs = std::experimental::filesystem;
 
 
 template<typename T>
-void load_data(const char* filename, T*& data, unsigned& num, unsigned& dim) {  // load data with sift10K pattern
+unsigned load_data(const char* filename, T*& data, unsigned query_dim) {  // load data with sift10K pattern
     std::ifstream in(filename, std::ios::binary);
     if (!in.is_open()) {
         std::cout << "open file error" << std::endl;
         exit(-1);
     }
+    unsigned dim;
     in.read((char*)&dim, 4);
-    // std::cout<<"data dimension: "<<dim<<std::endl;
+    assert(dim == query_dim);
     in.seekg(0, std::ios::end);
     std::ios::pos_type ss = in.tellg();
     size_t fsize = (size_t)ss;
-    num = (unsigned)(fsize / (dim + 1) / 4);
-    data = new T[(size_t)num * (size_t)dim];
+    num_vecs = (unsigned)(fsize / (dim + 1) / 4);
+    data = new T[(size_t)num_vecs * (size_t)dim];
 
     in.seekg(0, std::ios::beg);
-    for (size_t i = 0; i < num; i++) {
+    for (size_t i = 0; i < num_vecs; i++) {
         in.seekg(4, std::ios::cur);
         in.read((char*)(data + i * dim), dim * 4);
     }
@@ -46,55 +47,42 @@ void write_result( std::vector<unsigned> &results) {
 }
 
 template <typename Iter, typename Compare>
-std::vector<int> argsort(Iter begin, Iter end, Compare comp)
-{
-    // Begin Iterator, End Iterator, Comp
+std::vector<int> argsort(Iter begin, Iter end, Compare comp){
     std::vector<std::pair<int, Iter> > pairList; // Pair Vector
     std::vector<int> ret; // Will hold the indices
 
     int i = 0;
-    for (auto it = begin; it < end; it++)
-    {
+    for (auto it = begin; it < end; it++){
         std::pair<int, Iter> pair(i, it); // 0: Element1, 1:Element2...
         pairList.push_back(pair); // Add to list
         i++;
     }
-    // Stable sort the pair vector
     std::stable_sort(pairList.begin(), pairList.end(),
                      [comp](std::pair<int, Iter> prev, std::pair<int, Iter> next) -> bool
                      {return comp(*prev.second, *next.second); } // This is the important part explained below
     );
-
-    /*
-        Comp is a templated function pointer that makes a basic comparison
+    /* Comp is a templated function pointer that makes a basic comparison
         std::stable_sort takes a function pointer that takes
         (std::pair<int, Iter> prev, std::pair<int, Iter> next)
         and returns bool. We passed a corresponding lambda to stable sort
     and used our comp within brackets to capture it as an outer variable.
-    We then applied this function to our iterators which are dereferenced.
-    */
+    We then applied this function to our iterators which are dereferenced.*/
     for (auto i : pairList)
         ret.push_back(i.first); // Take indices
-
     return ret;
 }
 
 class Searcher{
 public:
-    unsigned query_dim;
-    unsigned K,L;
-    unsigned points_num, dim;
+    unsigned K;
+    unsigned num_vecs;
     efanna2e::IndexNSG* index;
     efanna2e::Parameters paras;
 
     Searcher(const char* filename, unsigned query_dim, const char *nsg_path, unsigned L, unsigned K){
         float *data_load = NULL;
-        load_data(filename, data_load, points_num, dim);
-//        auto query_dim = (unsigned) atoi(argv[2]);
-//        float *query_load = NULL;
+        num_vecs = load_data(filename, data_load, query_dim);
 
-//        unsigned L = (unsigned) atoi(argv[4]);
-//        unsigned K = (unsigned) atoi(argv[5]);
         this->K = K;
         this->L = L;
         if (L < K) {
@@ -102,14 +90,12 @@ public:
             exit(-1);
         }
 
-        this->index = new efanna2e::IndexNSG(dim, points_num, efanna2e::FAST_L2, nullptr);
+        this->index = new efanna2e::IndexNSG(dim, num_vecs, efanna2e::FAST_L2, nullptr);
         index->Load(nsg_path);
         index->OptimizeGraph(data_load);
         this->query_dim = query_dim;
         assert(dim == query_dim);
         delete[] data_load;
-
-//        query_load = new float[(size_t) dim];
 
         paras.Set<unsigned>("L_search", L);
         paras.Set<unsigned>("P_search", L);
@@ -139,18 +125,17 @@ int main(int argc, char **argv) {
 
     fs::path path_ids = argv[6];
     fs::path path_query = argv[7];
-//    std::ifstream in(path_query, std::ios::binary);
     float* queries = NULL;
     unsigned* ids = NULL;
-    unsigned nquery, dim;
-    load_data(path_query.string().c_str(), queries, nquery, dim);
-    load_data(path_ids.string().c_str(), ids, nquery, dim);
-//    std::cout << nquery << std::endl;
+    load_data(path_query.string().c_str(), queries, query_dim);
+    load_data(path_ids.string().c_str(), ids, 1);
+//    std::ifstream in(path_query, std::ios::binary);
+//    std::cout << num_vecs << std::endl;
 //    std::cout << dim << std::endl;
 //    in.seekg(0, std::ios::end);
-//    int nquery = in.tellg() / (4*query_dim+1);
-//    std::vector<std::vector<float> > queries(nquery, std::vector<float>(query_dim));
-//    for(int i=0; i < nquery; i++){
+//    int num_vecs = in.tellg() / (4*query_dim+1);
+//    std::vector<std::vector<float> > queries(num_vecs, std::vector<float>(query_dim));
+//    for(int i=0; i < num_vecs; i++){
 //        for(int j=0; j < query_dim; j++){
 //            queries[i][j] =
 //        }
@@ -165,21 +150,13 @@ int main(int argc, char **argv) {
         searchers.push_back(searcher);
     }
     std::vector<std::future<std::pair<std::vector<unsigned>,std::vector<float>>>> futures(searchers.size());
-//    for(int i=0; i<128; i++){
-//        std::cout << queries[i] << std::endl;
-//    }
-//    return 0;
     for(int i=0; i<searchers.size(); i++){
-//        std::cout << i <<std::endl;
-//        searchers[0].search(queries);
         futures[i] = std::async(&Searcher::search, &searchers[i], queries);
     }
     for(int i=0; i<searchers.size(); i++){
         futures[i].wait();
     }
 
-//    std::vector<unsigned> indices_(searchers.size() * K);
-//    std::vector<unsigned> dists_(searchers.size() * K);
     std::vector<unsigned> indices_;
     std::vector<float> dists_;
     unsigned offset=0;
@@ -191,19 +168,13 @@ int main(int argc, char **argv) {
         std::cout << aux.first[0] << std::endl;
         indices_.insert(indices_.end(), aux.first.begin(), aux.first.end());
         dists_.insert(dists_.end(), aux.second.begin(), aux.second.end());
-//        std::cout << aux.first[0] << std::endl;
-//        std::cout << indices_[0] << std::endl;
-        offset += searchers[i].points_num;
+        offset += searchers[i].num_vecs;
     }
 
-//    for(int i=0; i<50; i++){
-//        std::cout << dists_.size() << std::endl;
-//    }
     auto asort = argsort(dists_.begin(), dists_.end(), std::less<float>());
 
     std::vector<unsigned> indices(K);
     std::vector<float> dists(K);
-    return 0;
     for(unsigned i=0; i<indices.size(); i++){
         indices[i] = ids[indices_[asort[i]]];
         std::cout << i << std::endl;
@@ -212,7 +183,5 @@ int main(int argc, char **argv) {
 //        std::cout << dists[i] << std::endl;
     }
 
-//    for(unsigned i=0; i<10; i++){
-//    }
     return 0;
 }
