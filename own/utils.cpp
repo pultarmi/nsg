@@ -8,6 +8,8 @@
 #include <faiss/VectorTransform.h>
 
 
+void dummy(int a);
+
 template<typename T>
 unsigned load_data(const char* filename, T*& data, unsigned query_dim) {  // load data with sift10K pattern
     std::ifstream in(filename, std::ios::binary);
