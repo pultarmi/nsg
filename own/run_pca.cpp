@@ -45,6 +45,13 @@ faiss::VectorTransform* get_pca(const fs::path* path_pca){
     return aux;
 }
 
+faiss::PCAMatrix* fit_pca(float* embeds, unsigned num_vecs, unsigned dims, unsigned idims, unsigned odims){
+    auto pca = faiss::PCAMatrix(0, 0, 0, false);
+    pca.train(num_vecs, embeds);
+    return pca;
+//    void write_VectorTransform (const VectorTransform *vt, const char *fname);
+}
+
 class Input_data{
 public:
     fs::path path_pca;
@@ -78,7 +85,7 @@ int main(int argc, char **argv) {
     embeds_t[1] = transform(pca, num_vecs, embeds[1]);
     embeds_t[2] = transform(pca, num_vecs, embeds[2]);
 
-    auto coefs = std::vector<float>{1,1,1.0/2};
+    auto coefs = std::vector<float>{1.0, 1.0, -1.0};
 
     auto aux = combine(embeds_t, coefs, num_vecs, I.odims);
     for(unsigned i=0;i<50;i++){
