@@ -29,7 +29,7 @@ unsigned load_data(const char* filename, T*& data, unsigned query_dim) {  // loa
     }
     unsigned dim;
     in.read((char*)&dim, 4);
-    assert(dim == query_dim);
+    assert(dim == query_dim); // query_dim is just for check that you know what you are doing
     in.seekg(0, std::ios::end);
     std::ios::pos_type ss = in.tellg();
     size_t fsize = (size_t)ss;

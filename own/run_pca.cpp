@@ -49,18 +49,18 @@ class Input_data{
 public:
     fs::path path_pca;
     fs::path path_data;
-    unsigned idim;
-    unsigned odim;
+    unsigned idims;
+    unsigned odims;
     unsigned num_providers=3;
     Input_data(int argc, char **argv){
         if (argc != 5) {
-            std::cout << argv[0] << " path_pca path_data idim odim" << std::endl;
+            std::cout << argv[0] << " path_pca path_data idims odims" << std::endl;
             exit(-1);
         }
         path_pca = argv[1];
         path_data = argv[2];
-        idim = (unsigned) atoi(argv[3]);
-        odim = (unsigned) atoi(argv[4]);
+        idims = (unsigned) atoi(argv[3]);
+        odims = (unsigned) atoi(argv[4]);
     }
 };
 
@@ -69,14 +69,18 @@ int main(int argc, char **argv) {
     Input_data I(argc, argv);
     auto pca = get_pca(&I.path_pca);
     std::vector<float*> embeds(I.num_providers);
-    auto num_vecs = load_data(I.path_data.string().c_str(), embeds[0], I.idim);
-    load_data(I.path_data.string().c_str(), embeds[1], I.idim);
-    load_data(I.path_data.string().c_str(), embeds[2], I.idim);
+    auto num_vecs = load_data(I.path_data.string().c_str(), embeds[0], I.idims);
+    load_data(I.path_data.string().c_str(), embeds[1], I.idims);
+    load_data(I.path_data.string().c_str(), embeds[2], I.idims);
 
     std::vector<float*> embeds_t(I.num_providers);
     embeds_t[0] = transform(pca, num_vecs, embeds[0]);
     embeds_t[1] = transform(pca, num_vecs, embeds[1]);
     embeds_t[2] = transform(pca, num_vecs, embeds[2]);
+
+    auto coefs = std::vector<float>{1,1,-1};
+
+    auto aux = combine(embeds_t, coefs, num_vecs, I.odims);
 
     delete pca;
     for(int i=0;i<embeds.size();i++)
