@@ -16,12 +16,12 @@
 namespace fs = std::experimental::filesystem;
 
 
-std::vector<float> transform(faiss::VectorTransform* pca, float* embeds, unsigned num_embeds){
-//    std::unique_ptr<float[]> aux(pca->apply(num_embeds, embeds));
-    auto aux = pca->apply(num_embeds, embeds);
-    std::vector<float> out(std::begin(aux), std::end(aux));
-    return aux;
-}
+//std::vector<float> transform(faiss::VectorTransform* pca, float* embeds, unsigned num_embeds){
+////    std::unique_ptr<float[]> aux(pca->apply(num_embeds, embeds));
+//    auto aux = pca->apply(num_embeds, embeds);
+//    std::vector<float> out(std::begin(aux), std::end(aux));
+//    return aux;
+//}
 
 float* combine(float** embeds){
 
