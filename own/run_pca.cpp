@@ -31,7 +31,7 @@ int main(int argc, char **argv) {
     auto path_data = "/home/mpultar/Providers/P2/embeds0.fvecs";
     float* data = NULL;
     load_data(path_data, data, idim);
-    float* aux = pca->apply(128, data);
+    float* aux = pca->apply(1, data);
     for(unsigned i=0; i<50;i++){
         std::cout << aux[0] << std::endl;
     }
