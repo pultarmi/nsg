@@ -25,7 +25,6 @@ public:
         num_vecs = load_data(filename, data_load, query_dim);
 
         this->K = K;
-//        this->L = L;
         if (L < K) {
             std::cout << "search_L cannot be smaller than search_K!" << std::endl;
             exit(-1);
@@ -34,8 +33,6 @@ public:
         this->index = new efanna2e::IndexNSG(query_dim, num_vecs, efanna2e::FAST_L2, nullptr);
         index->Load(nsg_path);
         index->OptimizeGraph(data_load);
-//        this->query_dim = query_dim;
-//        assert(dim == query_dim);
         delete[] data_load;
 
         paras.Set<unsigned>("L_search", L);
@@ -50,6 +47,7 @@ public:
         return std::make_pair(res, dists);
     }
 };
+
 // path='/home/mpultar/Data/mix_fc:plus_pca:pca-P5-36_splits:36_1-1--1_nsg'
 // ~/nsg/build/own/run $path 128 $path 300 100 /home/mpultar/Data/ids.ivecs /home/mpultar/Data/query.fvecs
 int main(int argc, char **argv) {
@@ -69,17 +67,6 @@ int main(int argc, char **argv) {
     unsigned* ids = NULL;
     load_data(path_query.string().c_str(), queries, query_dim);
     load_data(path_ids.string().c_str(), ids, 1);
-//    std::ifstream in(path_query, std::ios::binary);
-//    std::cout << num_vecs << std::endl;
-//    std::cout << dim << std::endl;
-//    in.seekg(0, std::ios::end);
-//    int num_vecs = in.tellg() / (4*query_dim+1);
-//    std::vector<std::vector<float> > queries(num_vecs, std::vector<float>(query_dim));
-//    for(int i=0; i < num_vecs; i++){
-//        for(int j=0; j < query_dim; j++){
-//            queries[i][j] =
-//        }
-//    };
 
     std::vector<Searcher> searchers;
     for(int i=0; i < 36; i++) {

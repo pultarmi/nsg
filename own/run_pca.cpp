@@ -17,14 +17,14 @@ namespace fs = std::experimental::filesystem;
 
 
 
-std::unique_ptr<float[]> transform(faiss::VectorTransform* pca, unsigned num_embeds, float* embeds){
-    std::unique_ptr<float[]> aux(pca->apply(num_embeds, embeds));
+std::unique_ptr<float[]> transform(faiss::VectorTransform* pca, unsigned num_vecs, float* embeds){
+    std::unique_ptr<float[]> aux(pca->apply(num_vecs, embeds));
     return aux;
 }
 
-std::unique_ptr<float[]> combine(std::vector<float*> embeds, std::vector<float> coefs, unsigned num_embeds, unsigned dims){
-    std::unique_ptr<float[]> aux(new float[num_embeds]);
-    for(unsigned i=0; i<num_embeds*dims; i++){
+std::unique_ptr<float[]> combine(std::vector<float*> embeds, std::vector<float> coefs, unsigned num_vecs, unsigned dims){
+    std::unique_ptr<float[]> aux(new float[num_vecs]);
+    for(unsigned i=0; i<num_vecs*dims; i++){
         aux[i] = 0;
         for(unsigned j=0; j<embeds.size(); j++){
             aux[i] += coefs[j] * embeds[j][i];
@@ -60,8 +60,9 @@ public:
 int main(int argc, char **argv) {
     Input_data I(argc, argv);
     auto pca = get_pca(&I.path_pca);
-    float* data = nullptr;
-    load_data(I.path_data.string().c_str(), data, I.idim);
-    float* aux = pca->apply(2, data);
+    float* embeds = nullptr;
+    auto num_vecs = load_data(I.path_data.string().c_str(), embeds, I.idim);
+//    float* aux = pca->apply(2, data);
+    auto aux = transform(pca.get(), num_vecs, embeds);
 //    load_data(path_pca.string().c_str(), aux, idim);
 }
