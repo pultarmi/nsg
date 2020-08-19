@@ -30,7 +30,7 @@ float* transform(faiss::VectorTransform* pca, unsigned num_vecs, float* embeds){
 }
 
 float* combine(std::vector<float*> embeds, std::vector<float> coefs, unsigned num_vecs, unsigned dims){
-    auto aux = new float[num_vecs];
+    auto aux = new float[num_vecs*dims];
     for(unsigned i=0; i<num_vecs*dims; i++){
         aux[i] = 0;
         for(unsigned j=0; j<embeds.size(); j++){
@@ -83,6 +83,6 @@ int main(int argc, char **argv) {
     auto aux = combine(embeds_t, coefs, num_vecs, I.odims);
 
     delete pca;
-    for(int i=0;i<embeds.size();i++)
+    for(unsigned i=0;i<embeds.size();i++)
         delete embeds[i];
 }

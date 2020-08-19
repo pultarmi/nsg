@@ -77,17 +77,17 @@ int main(int argc, char **argv) {
         searchers.push_back(searcher);
     }
     std::vector<std::future<std::pair<std::vector<unsigned>,std::vector<float>>>> futures(searchers.size());
-    for(int i=0; i<searchers.size(); i++){
+    for(unsigned i=0; i<searchers.size(); i++){
         futures[i] = std::async(&Searcher::search, &searchers[i], queries);
     }
-    for(int i=0; i<searchers.size(); i++){
+    for(unsigned i=0; i<searchers.size(); i++){
         futures[i].wait();
     }
 
     std::vector<unsigned> indices_;
     std::vector<float> dists_;
     unsigned offset=0;
-    for(int i=0; i<searchers.size(); i++){
+    for(unsigned i=0; i<searchers.size(); i++){
         auto aux = futures[i].get();
         for(unsigned j=0; j<aux.first.size(); j++) {
             aux.first[j] += offset;
