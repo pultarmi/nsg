@@ -16,7 +16,6 @@
 namespace fs = std::experimental::filesystem;
 
 
-// path='/home/mpultar/Data/mix_fc:plus_pca:pca-P5-36_splits:36_1-1--1_nsg'
 // ~/nsg/build/own/run_pca /home/mpultar/Data/pca-P5-36 512 128
 int main(int argc, char **argv) {
     if (argc != 4) {
@@ -33,6 +32,8 @@ int main(int argc, char **argv) {
     float* data = NULL;
     load_data(path_data, data, idim);
     float* aux = pca->apply(128, data);
-    std::cout << aux[0] << std::endl;
+    for(unsigned i=0; i<50;i++){
+        std::cout << aux[0] << std::endl;
+    }
 //    load_data(path_pca.string().c_str(), aux, idim);
 }
