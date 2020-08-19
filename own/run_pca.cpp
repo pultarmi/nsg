@@ -81,7 +81,8 @@ int main(int argc, char **argv) {
     load_data(I.path_data.string().c_str(), embeds[2], I.idims);
 
 //    auto pca = get_pca(&I.path_pca);
-    auto pca = fit_pca(embeds[2], num_vecs, I.idims, I.odims);
+    auto pca = fit_pca(embeds[0], num_vecs, I.idims, I.odims);
+    write_VectorTransform(pca, "/home/mpultar/Data/pca_c");
     return 0;
 
     std::vector<float*> embeds_t(I.num_providers);
