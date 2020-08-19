@@ -45,9 +45,9 @@ faiss::VectorTransform* get_pca(const fs::path* path_pca){
     return aux;
 }
 
-faiss::PCAMatrix* fit_pca(float* embeds, unsigned num_vecs, unsigned dims, unsigned idims, unsigned odims){
-    auto pca = faiss::PCAMatrix(0, 0, 0, false);
-    pca.train(num_vecs, embeds);
+faiss::PCAMatrix* fit_pca(float* embeds, unsigned num_vecs, unsigned idims, unsigned odims){
+    auto pca = new faiss::PCAMatrix(idims, odims, 0, false);
+    pca->train(num_vecs, embeds);
     return pca;
 //    void write_VectorTransform (const VectorTransform *vt, const char *fname);
 }
@@ -74,11 +74,15 @@ public:
 // ~/nsg/build/own/run_pca /home/mpultar/Data/pca-P5-36 /home/mpultar/Providers/P2/embeds0.fvecs 512 128
 int main(int argc, char **argv) {
     Input_data I(argc, argv);
-    auto pca = get_pca(&I.path_pca);
+
     std::vector<float*> embeds(I.num_providers);
     auto num_vecs = load_data(I.path_data.string().c_str(), embeds[0], I.idims);
     load_data(I.path_data.string().c_str(), embeds[1], I.idims);
     load_data(I.path_data.string().c_str(), embeds[2], I.idims);
+
+//    auto pca = get_pca(&I.path_pca);
+    auto pca = fit_pca(embeds[2], num_vecs, I.idims, I.odims);
+    return 0;
 
     std::vector<float*> embeds_t(I.num_providers);
     embeds_t[0] = transform(pca, num_vecs, embeds[0]);
@@ -91,6 +95,7 @@ int main(int argc, char **argv) {
     for(unsigned i=0;i<50;i++){
         std::cout << aux[i]<<std::endl;
     }
+
 
     delete pca;
     for(unsigned i=0;i<embeds.size();i++)
