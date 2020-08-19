@@ -81,6 +81,9 @@ int main(int argc, char **argv) {
     auto coefs = std::vector<float>{1,1,-1};
 
     auto aux = combine(embeds_t, coefs, num_vecs, I.odims);
+    for(unsigned i=0;i<50;i++){
+        std::cout << aux[i]<<std::endl;
+    }
 
     delete pca;
     for(unsigned i=0;i<embeds.size();i++)
