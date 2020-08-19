@@ -16,13 +16,6 @@
 namespace fs = std::experimental::filesystem;
 
 
-//class Transformer{
-//public:
-//    faiss::VectorTransform* pca;
-//    Transformer(faiss::VectorTransform* pca){
-//
-//    }
-//}
 
 float* transform(faiss::VectorTransform* pca, unsigned num_vecs, float* embeds){
     auto aux = pca->apply(num_vecs, embeds);
@@ -50,6 +43,15 @@ faiss::PCAMatrix* fit_pca(float* embeds, unsigned num_vecs, unsigned idims, unsi
     pca->train(num_vecs, embeds);
     return pca;
 //    void write_VectorTransform (const VectorTransform *vt, const char *fname);
+}
+
+float* transform_mix(std::vector<faiss::VectorTransform*> pcas, std::vector<float*> embeds, std::vector<float> coefs, unsigned num_vecs){
+    std::vector<float*> transformed(pca.size());
+    for(unsigned i=0;i<pca.size();i++){
+        transformed[i] = transform(pca[i], num_vecs, embeds[i]);
+    }
+    auto aux2 = combine(transformed, coefs, num_vecs, pcas[0]->d_out);
+    return aux2;
 }
 
 class Input_data{
@@ -80,19 +82,24 @@ int main(int argc, char **argv) {
     load_data(I.path_data.string().c_str(), embeds[1], I.idims);
     load_data(I.path_data.string().c_str(), embeds[2], I.idims);
 
-//    auto pca = get_pca(&I.path_pca);
-    auto pca = fit_pca(embeds[0], num_vecs, I.idims, I.odims);
-    write_VectorTransform(pca, "/home/mpultar/Data/pca_c");
-    return 0;
+//    auto pca = fit_pca(embeds[0], num_vecs, I.idims, I.odims);
+//    write_VectorTransform(pca, "/home/mpultar/Data/pca_c");
 
     std::vector<float*> embeds_t(I.num_providers);
-    embeds_t[0] = transform(pca, num_vecs, embeds[0]);
-    embeds_t[1] = transform(pca, num_vecs, embeds[1]);
-    embeds_t[2] = transform(pca, num_vecs, embeds[2]);
+    std::vector<faiss::VectorTransform*> pcas(I.num_providers);
+    for(unsigned i=0;i<I.num_providers;i++){
+        pcas[i] = get_pca(&I.path_pca);
+    }
+//    embeds_t[0] = transform(pca, num_vecs, embeds[0]);
+//    embeds_t[1] = transform(pca, num_vecs, embeds[1]);
+//    embeds_t[2] = transform(pca, num_vecs, embeds[2]);
 
     auto coefs = std::vector<float>{1.0, 1.0, -1.0};
 
-    auto aux = combine(embeds_t, coefs, num_vecs, I.odims);
+//    auto aux = combine(embeds_t, coefs, num_vecs, I.odims);
+
+    auto aux = transform_mix(pcas, embeds, coefs, num_vecs);
+
     for(unsigned i=0;i<50;i++){
         std::cout << aux[i]<<std::endl;
     }
