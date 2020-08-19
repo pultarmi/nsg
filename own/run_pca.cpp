@@ -51,6 +51,7 @@ public:
     fs::path path_data;
     unsigned idim;
     unsigned odim;
+    unsigned num_providers=3;
     Input_data(int argc, char **argv){
         if (argc != 5) {
             std::cout << argv[0] << " path_pca path_data idim odim" << std::endl;
@@ -67,9 +68,17 @@ public:
 int main(int argc, char **argv) {
     Input_data I(argc, argv);
     auto pca = get_pca(&I.path_pca);
-    std::vector<float*> embeds(3);
+    std::vector<float*> embeds(I.num_providers);
     auto num_vecs = load_data(I.path_data.string().c_str(), embeds[0], I.idim);
     load_data(I.path_data.string().c_str(), embeds[1], I.idim);
     load_data(I.path_data.string().c_str(), embeds[2], I.idim);
-    auto aux = transform(pca, num_vecs, embeds[0]);
+
+    std::vector<float*> embeds_t(I.num_providers);
+    embeds_t[0] = transform(pca, num_vecs, embeds[0]);
+    embeds_t[1] = transform(pca, num_vecs, embeds[1]);
+    embeds_t[2] = transform(pca, num_vecs, embeds[2]);
+
+    delete pca;
+    for(int i=0;i<embeds.size();i++)
+        delete embeds[i];
 }
