@@ -37,7 +37,7 @@ class IndexNSG : public Index {
       const float *query,
       size_t K,
       const Parameters &parameters,
-      unsigned *indices);
+      unsigned *indices, float *odists);
   void OptimizeGraph(float* data);
 
   protected:

@@ -465,7 +465,7 @@ namespace efanna2e {
         }
     }
 
-    void IndexNSG::SearchWithOptGraph(const float *query, size_t K, const Parameters &parameters, unsigned *indices) {
+    void IndexNSG::SearchWithOptGraph(const float *query, size_t K, const Parameters &parameters, unsigned *indices, float *odists) {
         unsigned L = parameters.Get<unsigned>("L_search");
         DistanceFastL2 *dist_fast = (DistanceFastL2 *) distance_;
 
@@ -546,6 +546,7 @@ namespace efanna2e {
         }
         for (size_t i = 0; i < K; i++) {
             indices[i] = retset[i].id;
+            odists[i] = retset[i].distance;
         }
     }
 

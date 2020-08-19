@@ -4,8 +4,9 @@
 
 #include <efanna2e/index_nsg.h>
 #include <efanna2e/util.h>
-#include <chrono>
+//#include <chrono>
 #include <string>
+#include <unistd.h>
 
 void load_data(char* filename, float*& data, unsigned& num, unsigned& dim) {  // load data with sift10K pattern
     std::ifstream in(filename, std::ios::binary);
@@ -53,9 +54,7 @@ void write_result( std::vector<unsigned> &results) {
 
 int main(int argc, char **argv) {
     if (argc != 6) {
-        std::cout << argv[0]
-                  << " data_file query_dim nsg_path search_L search_K"
-                  << std::endl;
+        std::cout << argv[0] << " data_file query_dim nsg_path search_L search_K" << std::endl;
         exit(-1);
     }
     float *data_load = NULL;
@@ -78,33 +77,18 @@ int main(int argc, char **argv) {
     assert(dim == query_dim);
     delete[] data_load;
 
-//    std::cout << "aaa" << std::endl;
-//    float* aux = new float[1000000000];
-//    std::cout << aux[0];
-//    std::
-
     efanna2e::Parameters paras;
     paras.Set<unsigned>("L_search", L);
     paras.Set<unsigned>("P_search", L);
 
     query_load = new float[(size_t) dim];
     std::vector<unsigned> res(K);
+    std::vector<float> dists(K);
 
     while (!std::cin.eof()) {
         load_query(query_load, query_dim);
-        index.SearchWithOptGraph(query_load, K, paras, res.data());
+        index.SearchWithOptGraph(query_load, K, paras, res.data(), dists.data());
         write_result(res);
     }
-
-//    auto s = std::chrono::high_resolution_clock::now();
-//    for (unsigned i = 0; i < query_num; i++) {
-//        index.SearchWithOptGraph(query_load + i * dim, K, paras, res[i].data());
-//    }
-//    auto e = std::chrono::high_resolution_clock::now();
-//    std::chrono::duration<double> diff = e - s;
-//    std::cout << "search time: " << diff.count() << "\n";
-//
-//    save_result(argv[6], res);
-
     return 0;
 }

@@ -15,3 +15,4 @@ add_definitions (-std=c++11 -O3 -lboost -march=native -Wall -DINFO)
 
 add_subdirectory(src)
 add_subdirectory(tests)
+add_subdirectory(own)
