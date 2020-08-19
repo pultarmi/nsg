@@ -46,7 +46,7 @@ faiss::PCAMatrix* fit_pca(float* embeds, unsigned num_vecs, unsigned idims, unsi
 }
 
 float* transform_mix(std::vector<faiss::VectorTransform*> pcas, std::vector<float*> embeds, std::vector<float> coefs, unsigned num_vecs){
-    std::vector<float*> transformed(pcas[0].size());
+    std::vector<float*> transformed(pcas.size());
     for(unsigned i=0;i<pca.size();i++){
         transformed[i] = transform(pca[i], num_vecs, embeds[i]);
     }
