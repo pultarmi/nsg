@@ -27,12 +27,10 @@ int main(int argc, char **argv) {
     unsigned idim = (unsigned) atoi(argv[3]);
     unsigned odim = (unsigned) atoi(argv[4]);
     faiss::VectorTransform* pca = faiss::read_VectorTransform(path_pca.string().c_str());
-//    float* aux = NULL;
-//    faiss::idx_t n;
     float* data = NULL;
     load_data(path_data.string().c_str(), data, idim);
     float* aux = pca->apply(1, data);
-    for(unsigned i=0; i<50;i++){
+    for(unsigned i=0; i<128;i++){
         std::cout << aux[i] << std::endl;
     }
 //    load_data(path_pca.string().c_str(), aux, idim);
