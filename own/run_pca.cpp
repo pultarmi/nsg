@@ -29,9 +29,13 @@ int main(int argc, char **argv) {
     faiss::VectorTransform* pca = faiss::read_VectorTransform(path_pca.string().c_str());
     float* data = NULL;
     load_data(path_data.string().c_str(), data, idim);
-    float* aux = pca->apply(1, data);
+    float* aux = pca->apply(2, data);
     for(unsigned i=0; i<128;i++){
         std::cout << aux[i] << std::endl;
+    }
+    std::cout << "----" << std::endl;
+    for(unsigned i=0; i<128;i++){
+        std::cout << aux[i+128] << std::endl;
     }
 //    load_data(path_pca.string().c_str(), aux, idim);
 }
