@@ -17,15 +17,21 @@ namespace fs = std::experimental::filesystem;
 
 
 
-//float* transform(faiss::VectorTransform* pca, unsigned num_embeds, float* embeds){
-////    std::unique_ptr<float[]> aux(pca->apply(num_embeds, embeds));
-//    auto aux = pca->apply(num_embeds, embeds);
-//    std::vector<float> out(std::begin(aux), std::end(aux));
-//    return aux;
-//}
+std::unique_ptr<float[]> transform(faiss::VectorTransform* pca, unsigned num_embeds, float* embeds){
+    std::unique_ptr<float[]> aux(pca->apply(num_embeds, embeds));
+    return aux;
+}
 
-//vector<float> combine(std::vector<float*> embeds){
-//}
+std::unique_ptr<float[]> combine(std::vector<float*> embeds, std::vector<float> coefs, unsigned num_embeds, unsigned dims){
+    std::unique_ptr<float[]> aux(new float[num_embeds]);
+    for(unsigned i=0; i<num_embeds*dims; i++){
+        aux[i] = 0;
+        for(unsigned j=0; j<embeds.size(); j++){
+            aux[i] += coefs[j] * embeds[j][i];
+        }
+    }
+    return aux;
+}
 
 std::unique_ptr<faiss::VectorTransform> get_pca(const fs::path* path_pca){
     std::unique_ptr<faiss::VectorTransform> aux(faiss::read_VectorTransform(path_pca->string().c_str()));
@@ -54,7 +60,7 @@ public:
 int main(int argc, char **argv) {
     Input_data I(argc, argv);
     auto pca = get_pca(&I.path_pca);
-    float* data = NULL;
+    float* data = nullptr;
     load_data(I.path_data.string().c_str(), data, I.idim);
     float* aux = pca->apply(2, data);
 //    load_data(path_pca.string().c_str(), aux, idim);
