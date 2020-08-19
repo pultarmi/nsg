@@ -23,9 +23,8 @@ namespace fs = std::experimental::filesystem;
 //    return aux;
 //}
 
-float* combine(float** embeds){
-
-}
+//vector<float> combine(std::vector<float*> embeds){
+//}
 
 std::unique_ptr<faiss::VectorTransform> get_pca(const fs::path* path_pca){
     std::unique_ptr<faiss::VectorTransform> aux(faiss::read_VectorTransform(path_pca->string().c_str()));
