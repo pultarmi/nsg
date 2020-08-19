@@ -105,7 +105,7 @@ int main(int argc, char **argv) {
     }
 
 
-    delete pca;
-    for(unsigned i=0;i<embeds.size();i++)
-        delete embeds[i];
+//    delete pca;
+//    for(unsigned i=0;i<embeds.size();i++)
+//        delete embeds[i];
 }
