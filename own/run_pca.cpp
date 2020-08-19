@@ -60,9 +60,9 @@ public:
 int main(int argc, char **argv) {
     Input_data I(argc, argv);
     auto pca = get_pca(&I.path_pca);
-    float* embeds = nullptr;
-    auto num_vecs = load_data(I.path_data.string().c_str(), embeds, I.idim);
-//    float* aux = pca->apply(2, data);
-    auto aux = transform(pca.get(), num_vecs, embeds);
-//    load_data(path_pca.string().c_str(), aux, idim);
+    std::vector<float*> embeds(3);
+    auto num_vecs = load_data(I.path_data.string().c_str(), embeds[0], I.idim);
+    load_data(I.path_data.string().c_str(), embeds[1], I.idim);
+    load_data(I.path_data.string().c_str(), embeds[2], I.idim);
+    auto aux = transform(pca.get(), num_vecs, embeds[0]);
 }
