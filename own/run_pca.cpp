@@ -33,7 +33,7 @@ int main(int argc, char **argv) {
     load_data(path_data, data, idim);
     float* aux = pca->apply(1, data);
     for(unsigned i=0; i<50;i++){
-        std::cout << aux[0] << std::endl;
+        std::cout << aux[i] << std::endl;
     }
 //    load_data(path_pca.string().c_str(), aux, idim);
 }
