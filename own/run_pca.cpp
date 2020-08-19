@@ -78,7 +78,7 @@ int main(int argc, char **argv) {
     embeds_t[1] = transform(pca, num_vecs, embeds[1]);
     embeds_t[2] = transform(pca, num_vecs, embeds[2]);
 
-    auto coefs = std::vector<float>{1,1,-1};
+    auto coefs = std::vector<float>{1,1,1/2};
 
     auto aux = combine(embeds_t, coefs, num_vecs, I.odims);
     for(unsigned i=0;i<50;i++){
