@@ -22,8 +22,8 @@ float* transform(faiss::VectorTransform* pca, unsigned num_vecs, float* embeds){
     return aux;
 }
 
-float* combine(std::vector<float*> embeds, std::vector<float> coefs, unsigned num_vecs, unsigned dims){
-    auto aux = new float[num_vecs*dims];
+std::vector<float> combine(std::vector<float*> embeds, std::vector<float> coefs, unsigned num_vecs, unsigned dims){
+    std::vector<float> aux(num_vecs*dims);
     for(unsigned i=0; i<num_vecs*dims; i++){
         aux[i] = 0;
         for(unsigned j=0; j<embeds.size(); j++){
@@ -45,12 +45,12 @@ faiss::PCAMatrix* fit_pca(float* embeds, unsigned num_vecs, unsigned idims, unsi
 //    void write_VectorTransform (const VectorTransform *vt, const char *fname);
 }
 
-float* transform_mix(std::vector<faiss::VectorTransform*> pcas, std::vector<float*> embeds, std::vector<float> coefs, unsigned num_vecs){
+std::vector<float> transform_mix(std::vector<faiss::VectorTransform*> pcas, std::vector<float*> embeds, std::vector<float> coefs, unsigned num_vecs){
     std::vector<float*> transformed(pcas.size());
     for(unsigned i=0;i<pcas.size();i++){
         transformed[i] = transform(pcas[i], num_vecs, embeds[i]);
     }
-    auto aux2 = combine(transformed, coefs, num_vecs, pcas[0]->d_out);
+    auto aux2 = combine(transformed, std::move(coefs), num_vecs, pcas[0]->d_out);
     return aux2;
 }
 
