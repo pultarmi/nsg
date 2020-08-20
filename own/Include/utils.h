@@ -46,7 +46,7 @@ unsigned load_data(const char* filename, T*& data, unsigned query_dim) {  // loa
 }
 
 template<typename T>
-unsigned load_data__(const char* filename, std::vector<T> &data, unsigned query_dim) {  // load data with sift10K pattern
+unsigned load_data__(const char* filename, std::vector<T> *data, unsigned query_dim) {  // load data with sift10K pattern
     std::ifstream in(filename, std::ios::binary);
     if (!in.is_open()) {
         std::cout << "open file error" << std::endl;
