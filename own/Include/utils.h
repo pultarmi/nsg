@@ -65,7 +65,7 @@ unsigned load_data__(const char* filename, std::vector<T> *data, unsigned query_
     in.seekg(0, std::ios::beg);
     for (size_t i = 0; i < num_vecs; i++) {
         in.seekg(4, std::ios::cur);
-        in.read((char*)(data.data() + i * dim), dim * 4);
+        in.read((char*)(data->data() + i * dim), dim * 4);
     }
     in.close();
     return num_vecs;
