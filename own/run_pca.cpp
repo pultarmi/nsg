@@ -71,10 +71,10 @@ public:
 int main(int argc, char **argv) {
     Input_data I(argc, argv);
 
-    std::vector<float*> embeds(I.num_providers);
-    auto num_vecs = load_data(I.path_data.string().c_str(), embeds[0], I.idims);
-    load_data(I.path_data.string().c_str(), embeds[1], I.idims);
-    load_data(I.path_data.string().c_str(), embeds[2], I.idims);
+    std::vector<std::vector<float>> embeds(I.num_providers);
+    auto num_vecs = load_data__(I.path_data.string().c_str(), &embeds[0], I.idims);
+    load_data__(I.path_data.string().c_str(), &embeds[1], I.idims);
+    load_data__(I.path_data.string().c_str(), &embeds[2], I.idims);
 
 //    auto pca = fit_pca(embeds[0], num_vecs, I.idims, I.odims);
 //    write_VectorTransform(pca, "/home/mpultar/Data/pca_c");

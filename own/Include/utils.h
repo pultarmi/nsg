@@ -45,6 +45,31 @@ unsigned load_data(const char* filename, T*& data, unsigned query_dim) {  // loa
     return num_vecs;
 }
 
+template<typename T>
+unsigned load_data__(const char* filename, T*& data, unsigned query_dim) {  // load data with sift10K pattern
+    std::ifstream in(filename, std::ios::binary);
+    if (!in.is_open()) {
+        std::cout << "open file error" << std::endl;
+        exit(-1);
+    }
+    unsigned dim;
+    in.read((char*)&dim, 4);
+    assert(dim == query_dim); // query_dim is just for check that you know what you are doing
+    in.seekg(0, std::ios::end);
+    std::ios::pos_type ss = in.tellg();
+    size_t fsize = (size_t)ss;
+    auto num_vecs = (unsigned)(fsize / (dim + 1) / 4);
+    data = new T[(size_t)num_vecs * (size_t)dim];
+
+    in.seekg(0, std::ios::beg);
+    for (size_t i = 0; i < num_vecs; i++) {
+        in.seekg(4, std::ios::cur);
+        in.read((char*)(data + i * dim), dim * 4);
+    }
+    in.close();
+    return num_vecs;
+}
+
 template <typename Iter, typename Compare>
 std::vector<int> argsort(Iter begin, Iter end, Compare comp){
     std::vector<std::pair<int, Iter> > pairList; // Pair Vector
