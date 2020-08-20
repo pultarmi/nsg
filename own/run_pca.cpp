@@ -1,9 +1,6 @@
-//
-// Created by milan on 18/08/2020.
-//
-
-#include "Inc/run_pca.h"
-#include "Inc/utils.h"
+#include "Include/run_pca.h"
+#include "Include/utils.h"
+#include "Include/aux.h"
 #include <efanna2e/index_nsg.h>
 #include <efanna2e/util.h>
 #include <iostream>
