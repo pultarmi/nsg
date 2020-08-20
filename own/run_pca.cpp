@@ -13,7 +13,6 @@
 namespace fs = std::experimental::filesystem;
 
 
-
 float* transform(const faiss::VectorTransform* pca, unsigned num_vecs, const std::vector<float> &embeds){
     return pca->apply(num_vecs, embeds.data());
 }
