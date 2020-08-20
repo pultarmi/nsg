@@ -14,8 +14,8 @@ namespace fs = std::experimental::filesystem;
 
 
 
-float* transform(const faiss::VectorTransform &pca, unsigned num_vecs, const std::vector<float> &embeds){
-    return pca.apply(num_vecs, embeds.data());
+float* transform(const faiss::VectorTransform* pca, unsigned num_vecs, const std::vector<float> &embeds){
+    return pca->apply(num_vecs, embeds.data());
 }
 
 std::vector<float> combine(std::vector<float*> embeds, std::vector<float> coefs, unsigned num_vecs, unsigned dims){
@@ -40,12 +40,12 @@ faiss::PCAMatrix &fit_pca(const std::vector<float> &embeds, unsigned num_vecs, u
 //    void write_VectorTransform (const VectorTransform *vt, const char *fname);
 }
 
-std::vector<float> transform_mix(const std::vector<faiss::VectorTransform> &pcas, const std::vector<std::vector<float>> &embeds, const std::vector<float> &coefs, unsigned num_vecs){
+std::vector<float> transform_mix(const std::vector<faiss::VectorTransform*> pcas, const std::vector<std::vector<float>> &embeds, const std::vector<float> &coefs, unsigned num_vecs){
     std::vector<float*> transformed(pcas.size());
     for(unsigned i=0;i<pcas.size();i++){
         transformed[i] = transform(pcas[i], num_vecs, embeds[i]);
     }
-    return combine(transformed, coefs, num_vecs, pcas[0].d_out);
+    return combine(transformed, coefs, num_vecs, pcas[0]->d_out);
 }
 
 class Input_data{
