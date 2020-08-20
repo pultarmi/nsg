@@ -13,6 +13,9 @@ endif()
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -fno-builtin-malloc -fno-builtin-calloc -fno-builtin-realloc -fno-builtin-free")
 add_definitions (-std=c++11 -O3 -lboost -march=native -Wall -DINFO)
 
+find_package( BLAS REQUIRED )
+message( STATUS BLAS found: ${BLAS_LIBRARIES} )
+
 add_subdirectory(src)
 add_subdirectory(tests)
 add_subdirectory(own)
