@@ -59,7 +59,7 @@ unsigned load_data__(const char* filename, std::vector<T> *data, unsigned query_
     std::ios::pos_type ss = in.tellg();
     size_t fsize = (size_t)ss;
     auto num_vecs = (unsigned)(fsize / (dim + 1) / 4);
-    data.resize((size_t)num_vecs * (size_t)dim);
+    data->resize((size_t)num_vecs * (size_t)dim);
 //    data = new T[(size_t)num_vecs * (size_t)dim];
 
     in.seekg(0, std::ios::beg);
