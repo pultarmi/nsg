@@ -46,7 +46,7 @@ unsigned load_data(const char* filename, T*& data, unsigned query_dim) {  // loa
 }
 
 template<typename T>
-unsigned load_data__(const char* filename, T*& data, unsigned query_dim) {  // load data with sift10K pattern
+unsigned load_data__(const char* filename, std::vector<T> &data, unsigned query_dim) {  // load data with sift10K pattern
     std::ifstream in(filename, std::ios::binary);
     if (!in.is_open()) {
         std::cout << "open file error" << std::endl;
@@ -59,7 +59,8 @@ unsigned load_data__(const char* filename, T*& data, unsigned query_dim) {  // l
     std::ios::pos_type ss = in.tellg();
     size_t fsize = (size_t)ss;
     auto num_vecs = (unsigned)(fsize / (dim + 1) / 4);
-    data = new T[(size_t)num_vecs * (size_t)dim];
+    data.resize((size_t)num_vecs * (size_t)dim);
+//    data = new T[(size_t)num_vecs * (size_t)dim];
 
     in.seekg(0, std::ios::beg);
     for (size_t i = 0; i < num_vecs; i++) {
