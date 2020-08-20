@@ -17,9 +17,8 @@ namespace fs = std::experimental::filesystem;
 
 
 
-float* transform(faiss::VectorTransform* pca, unsigned num_vecs, float* embeds){
-    auto aux = pca->apply(num_vecs, embeds);
-    return aux;
+float* transform(const faiss::VectorTransform &pca, unsigned num_vecs, const std::vector<float> &embeds){
+    return pca.apply(num_vecs, embeds.data());
 }
 
 std::vector<float> combine(std::vector<float*> embeds, std::vector<float> coefs, unsigned num_vecs, unsigned dims){
@@ -34,24 +33,22 @@ std::vector<float> combine(std::vector<float*> embeds, std::vector<float> coefs,
 }
 
 faiss::VectorTransform* get_pca(const fs::path* path_pca){
-    auto aux = faiss::read_VectorTransform(path_pca->string().c_str());
-    return aux;
+    return faiss::read_VectorTransform(path_pca->string().c_str());
 }
 
-faiss::PCAMatrix* fit_pca(float* embeds, unsigned num_vecs, unsigned idims, unsigned odims){
-    auto pca = new faiss::PCAMatrix(idims, odims, 0, false);
-    pca->train(num_vecs, embeds);
+faiss::PCAMatrix &fit_pca(const std::vector<float> &embeds, unsigned num_vecs, unsigned idims, unsigned odims){
+    faiss::PCAMatrix pca(idims, odims, 0, false);
+    pca.train(num_vecs, embeds.data());
     return pca;
 //    void write_VectorTransform (const VectorTransform *vt, const char *fname);
 }
 
-std::vector<float> transform_mix(std::vector<faiss::VectorTransform*> pcas, std::vector<float*> embeds, std::vector<float> coefs, unsigned num_vecs){
+std::vector<float> transform_mix(const std::vector<faiss::VectorTransform> &pcas, const std::vector<std::vector<float>> &embeds, const std::vector<float> &coefs, unsigned num_vecs){
     std::vector<float*> transformed(pcas.size());
     for(unsigned i=0;i<pcas.size();i++){
         transformed[i] = transform(pcas[i], num_vecs, embeds[i]);
     }
-    auto aux2 = combine(transformed, std::move(coefs), num_vecs, pcas[0]->d_out);
-    return aux2;
+    return combine(transformed, coefs, num_vecs, pcas[0].d_out);
 }
 
 class Input_data{
