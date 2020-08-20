@@ -16,7 +16,7 @@ add_definitions (-std=c++11 -O3 -lboost -march=native -Wall -DINFO)
 find_package( BLAS REQUIRED )
 message( STATUS BLAS found: ${BLAS_LIBRARIES} )
 
-include_directories(${CMAKE_SOURCE_DIR}/include/faiss)
+include_directories(${CMAKE_SOURCE_DIR}/include)
 link_directories(${CMAKE_SOURCE_DIR}/lib)
 
 add_subdirectory(src)
