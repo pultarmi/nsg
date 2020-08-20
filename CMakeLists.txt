@@ -17,7 +17,7 @@ find_package( BLAS REQUIRED )
 message( STATUS BLAS found: ${BLAS_LIBRARIES} )
 
 include_directories(${CMAKE_SOURCE_DIR}/include/faiss)
-#link_directories(${CMAKE_SOURCE_DIR}/lib)
+link_directories(${CMAKE_SOURCE_DIR}/lib)
 
 add_subdirectory(src)
 add_subdirectory(tests)
