@@ -29,8 +29,8 @@ std::vector<float> combine(std::vector<float*> embeds, std::vector<float> coefs,
     return aux;
 }
 
-faiss::VectorTransform* get_pca(const fs::path* path_pca){
-    return faiss::read_VectorTransform(path_pca->string().c_str());
+faiss::VectorTransform* get_pca(const fs::path &path_pca){
+    return faiss::read_VectorTransform(path_pca.string().c_str());
 }
 
 faiss::PCAMatrix &fit_pca(const std::vector<float> &embeds, unsigned num_vecs, unsigned idims, unsigned odims){
@@ -80,9 +80,9 @@ int main(int argc, char **argv) {
 //    write_VectorTransform(pca, "/home/mpultar/Data/pca_c");
 
     std::vector<float*> embeds_t(I.num_providers);
-    std::vector<faiss::VectorTransform*> pcas(I.num_providers);
+    std::vector<faiss::VectorTransform> pcas(I.num_providers);
     for(unsigned i=0;i<I.num_providers;i++){
-        pcas[i] = get_pca(&I.path_pca);
+        pcas[i] = *get_pca(I.path_pca);
     }
 //    embeds_t[0] = transform(pca, num_vecs, embeds[0]);
 //    embeds_t[1] = transform(pca, num_vecs, embeds[1]);
