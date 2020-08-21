@@ -13,11 +13,13 @@
 namespace fs = std::experimental::filesystem;
 
 
-float* transform(const faiss::VectorTransform* pca, unsigned num_vecs, const std::vector<float> &embeds){
-    return pca->apply(num_vecs, embeds.data());
+std::vector<float> &transform(const faiss::VectorTransform* pca, unsigned num_vecs, const std::vector<float> &embeds){
+    auto aux = pca->apply(num_vecs, embeds.data());
+    auto aux2 = std::vector<float>(aux, aux+ num_vecs*pca->d_out);
+    return aux2;
 }
 
-std::vector<float> combine(std::vector<float*> embeds, std::vector<float> coefs, unsigned num_vecs, unsigned dims){
+std::vector<float> combine(const std::vector<std::vector<float>> &embeds, const std::vector<float> &coefs, unsigned num_vecs, unsigned dims){
     std::vector<float> aux(num_vecs*dims);
     for(unsigned i=0; i<num_vecs*dims; i++){
         aux[i] = 0;
@@ -40,7 +42,7 @@ faiss::PCAMatrix &fit_pca(const std::vector<float> &embeds, unsigned num_vecs, u
 }
 
 std::vector<float> transform_mix(const std::vector<faiss::VectorTransform*> pcas, const std::vector<std::vector<float>> &embeds, const std::vector<float> &coefs, unsigned num_vecs){
-    std::vector<float*> transformed(pcas.size());
+    std::vector<std::vector<float>> transformed(pcas.size());
     for(unsigned i=0;i<pcas.size();i++){
         transformed[i] = transform(pcas[i], num_vecs, embeds[i]);
     }
@@ -76,9 +78,9 @@ int main(int argc, char **argv) {
     load_data__(I.path_data.string().c_str(), &embeds[2], I.idims);
 
 //    auto pca = fit_pca(embeds[0], num_vecs, I.idims, I.odims);
-//    write_VectorTransform(pca, "/home/mpultar/Data/pca_c");
+//    write_VectorTransform(&pca, "/home/mpultar/Data/pca_c");
 
-    std::vector<float*> embeds_t(I.num_providers);
+//    std::vector<std::vector<float>> embeds_t(I.num_providers);
     std::vector<faiss::VectorTransform*> pcas(I.num_providers);
     for(unsigned i=0;i<I.num_providers;i++){
         pcas[i] = get_pca(I.path_pca);
