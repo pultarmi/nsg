@@ -73,14 +73,13 @@ unsigned load_data__(const char* filename, std::vector<T> *data, unsigned query_
 
 template <typename Iter, typename Compare>
 std::vector<int> argsort(Iter begin, Iter end, Compare comp){
-    std::vector<std::pair<int, Iter> > pairList; // Pair Vector
+    std::vector<std::pair<int, Iter> > pairList;
     std::vector<int> ret; // Will hold the indices
 
-    int i = 0;
-    for (auto it = begin; it < end; it++){
+//    int i = 0;
+    for (auto it = begin, i=0; it < end; it++, i++){
         std::pair<int, Iter> pair(i, it); // 0: Element1, 1:Element2...
         pairList.push_back(pair); // Add to list
-        i++;
     }
     std::stable_sort(pairList.begin(), pairList.end(),
                      [comp](std::pair<int, Iter> prev, std::pair<int, Iter> next) -> bool
