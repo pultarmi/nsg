@@ -13,10 +13,10 @@
 namespace fs = std::experimental::filesystem;
 
 
-std::vector<float> &transform(const faiss::VectorTransform* pca, unsigned num_vecs, const std::vector<float> &embeds){
+std::vector<float> transform(const faiss::VectorTransform* pca, unsigned num_vecs, const std::vector<float> &embeds){
     auto aux = pca->apply(num_vecs, embeds.data());
-    auto aux2 = std::vector<float>(aux, aux+ num_vecs*pca->d_out);
-    return aux2;
+    return std::vector<float>(aux, aux+ num_vecs*pca->d_out);
+//    return aux2;
 }
 
 std::vector<float> combine(const std::vector<std::vector<float>> &embeds, const std::vector<float> &coefs, unsigned num_vecs, unsigned dims){
@@ -34,7 +34,7 @@ faiss::VectorTransform* get_pca(const fs::path &path_pca){
     return faiss::read_VectorTransform(path_pca.string().c_str());
 }
 
-faiss::PCAMatrix &fit_pca(const std::vector<float> &embeds, unsigned num_vecs, unsigned idims, unsigned odims){
+faiss::PCAMatrix fit_pca(const std::vector<float> &embeds, unsigned num_vecs, unsigned idims, unsigned odims){
     faiss::PCAMatrix pca(idims, odims, 0, false);
     pca.train(num_vecs, embeds.data());
     return pca;
