@@ -16,7 +16,6 @@ namespace fs = std::experimental::filesystem;
 std::vector<float> transform(const faiss::VectorTransform* pca, unsigned num_vecs, const std::vector<float> &embeds){
     auto aux = pca->apply(num_vecs, embeds.data());
     return std::vector<float>(aux, aux+ num_vecs*pca->d_out);
-//    return aux2;
 }
 
 std::vector<float> combine(const std::vector<std::vector<float>> &embeds, const std::vector<float> &coefs, unsigned num_vecs, unsigned dims){
@@ -41,7 +40,7 @@ faiss::PCAMatrix fit_pca(const std::vector<float> &embeds, unsigned num_vecs, un
 //    void write_VectorTransform (const VectorTransform *vt, const char *fname);
 }
 
-std::vector<float> transform_mix(const std::vector<faiss::VectorTransform*> pcas, const std::vector<std::vector<float>> &embeds, const std::vector<float> &coefs, unsigned num_vecs){
+std::vector<float> mix_transform(const std::vector<faiss::VectorTransform*> pcas, const std::vector<std::vector<float>> &embeds, const std::vector<float> &coefs, unsigned num_vecs){
     std::vector<std::vector<float>> transformed(pcas.size());
     for(unsigned i=0;i<pcas.size();i++){
         transformed[i] = transform(pcas[i], num_vecs, embeds[i]);
@@ -68,7 +67,7 @@ public:
     }
 };
 
-// ~/nsg/build/own/run_pca /home/mpultar/Data/pca-P5-36 /home/mpultar/Providers/P2/embeds0.fvecs 512 128
+// ~/nsg/build/own/run_pca /home/mpultar/Data/PCA/P5 /home/mpultar/Providers/P2/embeds0.fvecs 512 128
 int main(int argc, char **argv) {
     Input_data I(argc, argv);
 
@@ -93,7 +92,7 @@ int main(int argc, char **argv) {
 
 //    auto aux = combine(embeds_t, coefs, num_vecs, I.odims);
 
-    auto aux = transform_mix(pcas, embeds, coefs, num_vecs);
+    auto aux = mix_transform(pcas, embeds, coefs, num_vecs);
 
     for(unsigned i=0;i<50;i++){
         std::cout << aux[i]<<std::endl;
