@@ -76,7 +76,6 @@ std::vector<int> argsort(Iter begin, Iter end, Compare comp){
     std::vector<std::pair<int, Iter> > pairList;
     std::vector<int> ret; // Will hold the indices
 
-//    int i = 0;
     for (auto it = begin, i=0; it < end; it++, i++){
         std::pair<int, Iter> pair(i, it); // 0: Element1, 1:Element2...
         pairList.push_back(pair); // Add to list

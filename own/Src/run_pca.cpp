@@ -1,6 +1,6 @@
-#include "Include/run_pca.h"
-#include "Include/utils.h"
-#include "Include/aux.h"
+#include "run_pca.h"
+#include "utils.h"
+#include "aux.h"
 #include <efanna2e/index_nsg.h>
 #include <efanna2e/util.h>
 #include <iostream>
